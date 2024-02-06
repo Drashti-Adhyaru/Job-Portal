@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies List</title>
+    <title>Users List</title>
     <style>
         body{
           background-blend-mode: darken;
@@ -13,53 +13,133 @@
             text-align: center;
             padding: 20px;
         }
+        .ent{
+            color: azure;
+        }
 
-        .movies-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
+        
+         table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #fffefe;
+            text-align: left;
+            padding: 8px;
             color: white;
         }
-
-        .movie {
-            height: 300px;
-            width: 300px;
-            background-color: #1f0505eb;
-            border-radius: 8px;
-            overflow: hidden;
-            margin: 10px;
+        th {
+            color: wheat;
+        }
+         .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
         }
 
-        .movie img {
-            width: 100%;
-            height: 70%;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .movie h2 {
-     height: 20%;
-            padding: 10px;
-             word-wrap: break-word;
-            margin: 0;
-            font-size: 1.2em;
-        }
-
-        .movie p {
-            padding: 10px;
-            margin: 0;
-            font-size: 0.9;
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
         }
     </style>
 </head>
 <body>
     <h1>Users List</h1>
-    {{#each data}}
-    <div>{{this.firstName}}</div>
-{{/each}}
+<button onclick="document.getElementById('myModal').style.display='block'" class="button">Add New User</button>
 
-  
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+            <form action="/api/add_user" method="POST">
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                 <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br>
+                <label for="firstName">First Name:</label><br>
+                <input type="text" id="firstName" name="firstName"><br>
+                <label for="lastName">Last Name:</label><br>
+                <input type="text" id="lastName" name="lastName"><br>
+                <label for="role">Role:</label><br>
+                <input type="text" id="role" name="role"><br>
+                <label for="phone">Phone:</label><br>
+                <input type="text" id="phone" name="phone"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+
+  <table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+            <th>Phone</th>
+
+        </tr>
+    </thead>
+    <tbody>
+            {{#each data}}
+
+        <tr>
+            <td>{{this._id}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.firstName}}</td>
+            <td>{{this.lastName}}</td>
+            <td>{{this.role}}</td>
+            <td>{{this.phone}}</td>
+
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
    
+     <script>
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>

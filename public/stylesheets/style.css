@@ -15,7 +15,7 @@ background-color: #420e0eb3;
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: wheat;
+  background-color: black;
   background-blend-mode: darken;
   display: flex;
   flex-direction: column;
