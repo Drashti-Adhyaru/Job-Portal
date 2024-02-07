@@ -70,24 +70,42 @@ app.engine('hbs', exphbs.engine({
         password: req.body.password
 
       });
-      Users.find().exec()
-      .then(data => {
-        console.log(data);
-        res.render('all_movies', { data: data });
-      })
-      .catch(error => {
-        res.status(500).send(error.message);
-      });
+
+   
+      res.render('index', { data: "Record Added Successfully" });
+
+
+
+
   
     } catch (error) {
       res.status(500).send(error.message);
   
     }
+
+  }
+  
+  );
+
+
+
+  app.post('/api/delete/:id', function (req, res) {
+    // let id = req.params.book_id; // if using parameters in the route
+    let id = req.body.id;
+  
+    let id1 = req.params.id;
+    console.log(id);
+  
+    Users.deleteOne({ _id: id1 })
+      .then(result => {
+  
+        res.render('index', { title: 'Project' });
+      })
+      .catch(error => {
+        res.send(error);
+        console.log(error);
+      });
   });
-
-
-
-
 
 
 
