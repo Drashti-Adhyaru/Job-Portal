@@ -45,6 +45,6 @@ const resumeSchema = new mongoose.Schema({
     }
 });
 
-const Resume = mongoose.model("resumes", resumeSchema);
+const Resume = mongoose.models.resumes || mongoose.model("resumes", resumeSchema);
 
 module.exports = Resume;

@@ -1,17 +1,18 @@
 import { getDataFromToken } from "@/app/helper/getDataFromToken";
 import { getRoleFromToken } from "@/app/helper/getRoleFromToken";
 import {connect} from "@/dbConfig/dbConfig";
-import Job from "@/models/jobModel";
+import Resume from "@/models/resumeModel";
 import { NextRequest, NextResponse } from "next/server";
 
 connect()
 
 export async function GET(request:NextRequest){
     try {
-        const jobs = await Job.find();
+        const userId = await getDataFromToken(request);
+        const resumes = await Resume.find({userId:userId});
         return NextResponse.json({
-            message: "Jobs found",
-            data: jobs
+            message: "Resume found",
+            data: resumes
         })
     } catch (error: any) {
         return NextResponse.json({error: error.message}, {status: 400})
@@ -28,28 +29,39 @@ export async function POST(request: NextRequest){
          
 
             const reqBody = await request.json()
-            const {title,companyName,description,type, pay,category,address} = reqBody
+            const {
+                firstName,
+                lastName,
+                age,
+                experience,
+                aboutYou, 
+                highestQualification,
+                availibility,
+                address,
+                status} = reqBody
     
-            const newJob = new Job({
+            const newResume = new Resume({
                 userId,
-                title,
-                companyName,
-                description,
-                type, 
-                pay,
-                category,
-                address
+                firstName,
+                lastName,
+                age,
+                experience,
+                aboutYou, 
+                highestQualification,
+                availibility,
+                address,
+                status
             })
     
-            console.log(newJob);
+            console.log(newResume);
     // Saves the new user to the database.
-            const savedJob = await newJob.save()
+            const savedResume = await newResume.save()
     
             
             return NextResponse.json({
-                message: "Job created successfully",
+                message: "Resume created successfully",
                 success: true,
-                savedJob
+                savedResume
             })
     
     
@@ -57,4 +69,6 @@ export async function POST(request: NextRequest){
             return NextResponse.json({error: error.message}, {status: 500})
     
         }
-    }
+}
+
+
