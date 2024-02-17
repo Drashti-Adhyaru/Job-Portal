@@ -26,35 +26,109 @@ export async function POST(request: NextRequest){
             const userId = await getDataFromToken(request);
             const role = await getRoleFromToken(request);
          
+            if(role=="employee"){
+                return NextResponse.json({
+                    message: "Employee can not create a job",
+                })
+            }else{
+                const reqBody = await request.json()
+                const {title,companyName,description,type, pay,category,address} = reqBody
+        
+                const newJob = new Job({
+                    userId,
+                    title,
+                    companyName,
+                    description,
+                    type, 
+                    pay,
+                    category,
+                    address
+                })
+        
+                console.log(newJob);
+        // Saves the new user to the database.
+                const savedJob = await newJob.save()
+        
+                
+                return NextResponse.json({
+                    message: "Job created successfully",
+                    success: true,
+                    savedJob
+                })
+            }
 
-            const reqBody = await request.json()
-            const {title,companyName,description,type, pay,category,address} = reqBody
-    
-            const newJob = new Job({
-                userId,
-                title,
-                companyName,
-                description,
-                type, 
-                pay,
-                category,
-                address
-            })
-    
-            console.log(newJob);
-    // Saves the new user to the database.
-            const savedJob = await newJob.save()
-    
-            
-            return NextResponse.json({
-                message: "Job created successfully",
-                success: true,
-                savedJob
-            })
+
+
+           
     
     
         } catch (error: any) {
             return NextResponse.json({error: error.message}, {status: 500})
     
+        }
+    }
+
+
+
+    export async function DELETE(request: NextRequest) {
+        try {
+            const userId = await getDataFromToken(request);
+            const role = await getRoleFromToken(request);
+            const url = new URL(request.url);
+            const jobId = url.searchParams.get('jobId');
+    
+
+            if(role=="employee"){
+                return NextResponse.json({
+                    message: "Employee can not delete a job",
+                })
+            }else{
+
+            const deletedJob = await Job.findOneAndDelete({ _id: jobId, userId });
+    
+            if (!deletedJob) {
+                throw new Error("Job not found or you are not authorized to delete it.");
+            }
+    
+            return NextResponse.json({
+                message: "Job deleted successfully",
+                success: true,
+                deletedJob
+            });
+        }
+        } catch (error: any) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+    }
+
+
+    export async function PUT(request: NextRequest) {
+        try {
+            const userId = await getDataFromToken(request);
+            const role = await getRoleFromToken(request);
+    
+            const url = new URL(request.url);
+            const jobId = url.searchParams.get('jobId');
+        
+            const reqBody = await request.json();
+            const { title, companyName, description, type, pay, category, address } = reqBody;
+    
+            const updatedJob = await Job.findOneAndUpdate(
+                { _id: jobId, userId },
+                { title, companyName, description, type, pay, category, address },
+                { new: true } // Return the updated document
+            );
+    
+            if (!updatedJob) {
+                throw new Error("Job not found or you are not authorized to update it.");
+            }
+    
+            return NextResponse.json({
+                message: "Job updated successfully",
+                success: true,
+                updatedJob
+            });
+        } catch (error: any) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
         }
     }
