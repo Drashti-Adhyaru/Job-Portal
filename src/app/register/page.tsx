@@ -41,7 +41,7 @@ function Register() {
     if (response.ok) {
       router.push("/login");
     } else {
-      // Handle errors
+      setError("User Already exists");
     }
   }
   return (
