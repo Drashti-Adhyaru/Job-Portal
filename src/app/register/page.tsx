@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
 function Register() {
   const router = useRouter();
+  const [error, setError] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -15,7 +16,21 @@ function Register() {
     const password = formData.get("password");
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
-    const role = formData.get("role");
+    const role = formData.get("userRole");
+    const confirmPassword = formData.get("confirmPassword");
+
+ 
+
+    if (email =="" || password =="" || firstName =="" || lastName =="" || confirmPassword == "")  {
+      setError("All fields are required");
+      return;
+    }
+
+   // Check if password and confirm password match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match" );
+      return;
+    }
 
     const response = await fetch("/api/users/signup", {
       method: "POST",
@@ -80,7 +95,8 @@ function Register() {
                         </a>
                       </p>
                     </div>
-
+                    {error && (
+                      <div className="text-red-500 text-center mb-4">{error}</div>)}
                     <div className="mt-5">
                       {/* <!-- Grid --> */}
                       <div className="grid grid-cols-2 gap-4">
@@ -94,7 +110,7 @@ function Register() {
                             <input
                               name="firstName"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                             
+                             required
 
                             />
                           </div>
@@ -112,7 +128,7 @@ function Register() {
                             <input
                               name="lastName"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-
+                              required
                            />
                           </div>
                           {/* <!-- End Floating Input --> */}
@@ -129,35 +145,40 @@ function Register() {
                             <input
                               name="email"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                           />
+                              required
+                          />
                           </div>
                           {/* <!-- End Floating Input --> */}
                         </div>
                         <div className="grid sm:grid-cols-2 gap-2 col-span-full">
-                          <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-                            <input
-                              type="radio"
-                              name="userole"
-                              className=" shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                              id="hs-radio-in-form"
-                            />
-                            <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
-                              Job Seeker
-                            </span>
-                          </label>
+        <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+          <input
+            type="radio"
+            name="userRole"
+            value="user"
+            className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+            id="hs-radio-in-form"
+           
+          />
+          <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
+            Job Seeker
+          </span>
+        </label>
 
-                          <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-                            <input
-                              type="radio"
-                              name="userole"
-                              className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                              id="hs-radio-checked-in-form"
-                            />
-                            <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
-                              Employer
-                            </span>
-                          </label>
-                        </div>
+        <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+          <input
+            type="radio"
+            name="userRole"
+            value="employer"
+            className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+            id="hs-radio-checked-in-form"
+           
+          />
+          <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
+            Employer
+          </span>
+        </label>
+      </div>
                         {/* <!-- End Input Group --> */}
 
                         {/* <!-- Input Group --> */}
@@ -176,8 +197,9 @@ function Register() {
                               New password
                             </label>
                             <input
+                            required
                             name="password"
-                              type="password"
+                              type="text"
                               id="hs-hero-signup-form-floating-input-new-password"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                               placeholder="********"
@@ -195,8 +217,9 @@ function Register() {
                               Confirm password
                             </label>
                             <input
-                            name="confirmpassword"
-                              type="password"
+                            required
+                            name="confirmPassword"
+                              type="text"
                               id="hs-hero-signup-form-floating-input-new-password"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                               placeholder="********"

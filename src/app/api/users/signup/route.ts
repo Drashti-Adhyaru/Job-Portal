@@ -17,14 +17,14 @@ export async function POST(request: NextRequest){
 // Parses the request body to extract username, email, and password.
 
 //Checks if a user with the provided email already exists. 
-       // const user = await User.findOne({email})
+       const user = await User.findOne({email})
 
 //If yes, returns a 400 response.
-        // if(user){
-        //     return NextResponse.json({error: "User already exists"}, {status: 400})
-        // }else{
-        //     console.log('user not found');
-        // }
+         if(user){
+            return NextResponse.json({error: "User already exists"}, {status: 400})
+         }else{
+            console.log('user not found');
+         }
 
 //hash password using bcryptjs.
         const salt = await bcryptjs.genSalt(10)
