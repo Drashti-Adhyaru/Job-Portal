@@ -1,28 +1,34 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
 function Register() {
   const router = useRouter();
-  const [user, setUser] = React.useState({
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    role: "Employer",
-  });
 
-  const onSignup = async () => {
-    try {
-      const response = await axios.post("/api/users/signup", user);
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const role = formData.get("role");
+
+    const response = await fetch("/api/users/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName,lastName,email, password,role }),
+    });
+    
+    if (response.ok) {
       router.push("/login");
-    } catch (error: any) {
-      console.log("Signup failed", error.message);
+    } else {
+      // Handle errors
     }
-  };
-
+  }
   return (
     <>
       {/* <!-- Hero --> */}
@@ -56,7 +62,7 @@ function Register() {
 
             <div>
               {/* <!-- Form --> */}
-              <form>
+              <form onSubmit={handleSubmit} >
                 <div className="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
                   {/* <!-- Card --> */}
                   <div className="p-4 sm:p-7 flex flex-col rounded-2xl shadow-lg dark:bg-slate-900 bg-white bg-opacity-40 py-4">
@@ -86,10 +92,9 @@ function Register() {
                               First Name
                             </label>
                             <input
-                              name="First Name"
+                              name="firstName"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                              value={user.firstName}
-                              onChange={(e) => setUser({...user, firstName: e.target.value})}
+                             
 
                             />
                           </div>
@@ -105,10 +110,8 @@ function Register() {
                               Last Name
                             </label>
                             <input
-                              name="text"
+                              name="lastName"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                              value={user.lastName}
-                              onChange={(e) => setUser({...user, lastName: e.target.value})}
 
                            />
                           </div>
@@ -126,9 +129,6 @@ function Register() {
                             <input
                               name="email"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                              value={user.email}
-                              onChange={(e) => setUser({...user, email: e.target.value})}
-
                            />
                           </div>
                           {/* <!-- End Floating Input --> */}
@@ -176,12 +176,11 @@ function Register() {
                               New password
                             </label>
                             <input
+                            name="password"
                               type="password"
                               id="hs-hero-signup-form-floating-input-new-password"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                               placeholder="********"
-                              value={user.password}
-                              onChange={(e) => setUser({...user, password: e.target.value})}
                             />
                           </div>
                           {/* <!-- End Floating Input --> */}
@@ -196,6 +195,7 @@ function Register() {
                               Confirm password
                             </label>
                             <input
+                            name="confirmpassword"
                               type="password"
                               id="hs-hero-signup-form-floating-input-new-password"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
@@ -211,7 +211,7 @@ function Register() {
 
                       <div className="mt-5">
                         <button
-                          onClick={onSignup}
+                          type="submit"
                           className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                         >
                           Get started
@@ -234,4 +234,5 @@ function Register() {
     </>
   );
 }
+
 export default Register;
