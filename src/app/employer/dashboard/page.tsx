@@ -4,8 +4,15 @@ import Applyjob from "@/components/ApplyJob";
 import JobListing from "@/components/JobListing";
 import Jobs from "@/components/Jobs";
 import Paging from "@/components/Paging";
+import axios from "axios";
 
 function EmployerDashboard() {
+
+
+
+
+
+
     return (
       <>
         {/* <!-- Hero --> */}
@@ -14,7 +21,7 @@ function EmployerDashboard() {
             <div className="text-center">
              
               <h1 className="text-4xl sm:text-6xl font-bold text-gray-800 dark:text-gray-200">
-              Hi! George
+             HI
               </h1>
               <div className="mt-10">
     <Addjob/>

@@ -1,10 +1,12 @@
 "use client";
 import { useRouter } from 'next/navigation'
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import { getRoleFromToken } from '../helper/getRoleFromToken';
+import { NextRequest } from 'next/server';
 
 function Login() {
   const router = useRouter();
-
+  const [error, setError] = useState("");
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -18,10 +20,18 @@ function Login() {
       body: JSON.stringify({ email, password }),
     });
     
-    if (response.ok) {
-      router.push("/user/dashboard");
+    if (response.ok) {    
+      response.json().then(data => {
+        console.log(data)
+        if(data.data.role === "employer")
+        router.push("/employer/dashboard");
+      else {
+        router.push("/user/dashboard");
+      }
+    })
+     
     } else {
-      // Handle errors
+      setError("Invalid Credential");
     }
   }
 
@@ -75,6 +85,8 @@ function Login() {
                     </a>
                   </p>
                 </div>
+                {error && (
+                      <div className="text-red-500 text-center mb-4">{error}</div>)}
                 <div className="flex flex-col gap-4 p-4 md:p-8">
                   <div>
                     <label className="mb-2 inline-block text-sm text-gray-800 sm:text-base">
