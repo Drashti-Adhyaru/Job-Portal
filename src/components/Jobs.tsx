@@ -18,10 +18,6 @@ import React, { useEffect, useState } from "react";
     phone : number
   }
 
-
-
-   
-
   const [jobs, setJobs] = useState<JobType[]>([]);
 
   useEffect(() => {
