@@ -32,7 +32,7 @@ export async function POST(request: NextRequest){
                 })
             }else{
                 const reqBody = await request.json()
-                const {title,companyName,description,type, pay,category,address} = reqBody
+                const {title,companyName,description,type, pay,category,address,email,phone} = reqBody
         
                 const newJob = new Job({
                     userId,
@@ -42,7 +42,9 @@ export async function POST(request: NextRequest){
                     type, 
                     pay,
                     category,
-                    address
+                    address,
+                    email,
+                    phone
                 })
         
                 console.log(newJob);

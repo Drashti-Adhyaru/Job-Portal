@@ -1,5 +1,41 @@
-"use client"
-function Jobs(){
+
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+
+ async function Jobs(){
+
+
+  type JobType = {
+    userId : string,
+    title  : string,
+    companyName  : string,
+    description  : string,
+    type  : string, 
+    pay  : number,
+    category  : string,
+    address  : string,
+    email  : string,
+    phone : number
+  }
+
+
+
+   
+
+  const [jobs, setJobs] = useState<JobType[]>([]);
+
+  useEffect(() => {
+    async function getJobs() {
+      try {
+        const response = await axios.get("/api/jobs/jobsbyid");
+        setJobs(response.data); // Assuming the data you need is in the response's data property
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    }
+
+    getJobs();
+  }, []);
     return (
         <>
           <link
@@ -23,7 +59,7 @@ function Jobs(){
                       href="#"
                       className="sm:text-sm md:text-md lg:text-lg text-gray-700 font-bold hover:underline"
                     >
-                      JOB TITLE HERE
+                     Job
                     </a>
                     <div className="flex justify-between items-center hidden sm:block">
                    
@@ -56,15 +92,15 @@ function Jobs(){
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                              
+                               
+                             
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                           />
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                              
+                               
+                             
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                           />
                         </svg>
@@ -83,11 +119,11 @@ function Jobs(){
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
-                          stroke-width="2"
+                           
                           stroke="currentColor"
                           fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                            
+                             
                         >
                           {" "}
                           <path stroke="none" d="M0 0h24v24H0z" />{" "}
@@ -113,9 +149,9 @@ function Jobs(){
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                              
+                               
+                             
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>
@@ -137,6 +173,7 @@ function Jobs(){
             </div>
           </div>
         </div>
+      
         <div className="grid mx-20">
           {/* <!-- Question Listing Item Card --> */}
           <div className="grid place-items-center">
@@ -188,15 +225,15 @@ function Jobs(){
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                              
+                               
+                             
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                           />
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                              
+                               
+                             
                             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                           />
                         </svg>
@@ -215,11 +252,11 @@ function Jobs(){
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
-                          stroke-width="2"
+                           
                           stroke="currentColor"
                           fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                            
+                             
                         >
                           {" "}
                           <path stroke="none" d="M0 0h24v24H0z" />{" "}
@@ -245,9 +282,9 @@ function Jobs(){
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                              
+                               
+                             
                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                           />
                         </svg>

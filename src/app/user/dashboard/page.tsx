@@ -1,6 +1,5 @@
 import ApplyFilter from "@/components/ApplyFilter";
 import JobListing from "@/components/JobListing";
-import Paging from "@/components/Paging";
 
 function UserDashboard() {
   return (
@@ -115,7 +114,6 @@ function UserDashboard() {
 
       <JobListing />
 
-      <Paging />
     </>
   );
 }
