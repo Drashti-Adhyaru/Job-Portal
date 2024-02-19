@@ -13,14 +13,14 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  // const logout = async () => {
-  //   try {
-  //     await axios.get("/api/users/logout");
-  //     router.push("/login");
-  //   } catch (error: any) {
-  //     console.log(error.message);
-  //   }
-  // };
+  const logout = async () => {
+    try {
+      await axios.get("/api/users/logout");
+      router.push("/login");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <>
@@ -83,10 +83,10 @@ const Navigation = () => {
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
-        {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
 
           <button onClick={logout} > Logout</button>
-        </div> */}
+        </div>
       </nav>
       <Dialog
         as="div"

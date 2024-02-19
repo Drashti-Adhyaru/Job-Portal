@@ -9,10 +9,6 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide last name"],
     },
-    phone: {
-        type: String,
-        required: [true, "Please provide phone number"],
-    },
     role: {
         type: String,
         default: "Employee", // Assuming "Employee" is the default role

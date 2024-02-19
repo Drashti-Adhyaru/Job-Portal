@@ -1,28 +1,49 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
 function Register() {
   const router = useRouter();
-  const [user, setUser] = React.useState({
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    role: "Employer",
-  });
+  const [error, setError] = useState("");
 
-  const onSignup = async () => {
-    try {
-      const response = await axios.post("/api/users/signup", user);
-      router.push("/login");
-    } catch (error: any) {
-      console.log("Signup failed", error.message);
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const role = formData.get("userRole");
+    const confirmPassword = formData.get("confirmPassword");
+
+ 
+
+    if (email =="" || password =="" || firstName =="" || lastName =="" || confirmPassword == "")  {
+      setError("All fields are required");
+      return;
     }
-  };
 
+   // Check if password and confirm password match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match" );
+      return;
+    }
+
+    const response = await fetch("/api/users/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName,lastName,email, password,role }),
+    });
+    
+    if (response.ok) {
+      router.push("/login");
+    } else {
+      setError("User Already exists");
+    }
+  }
   return (
     <>
       {/* <!-- Hero --> */}
@@ -56,7 +77,7 @@ function Register() {
 
             <div>
               {/* <!-- Form --> */}
-              <form>
+              <form onSubmit={handleSubmit} >
                 <div className="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
                   {/* <!-- Card --> */}
                   <div className="p-4 sm:p-7 flex flex-col rounded-2xl shadow-lg dark:bg-slate-900 bg-white bg-opacity-40 py-4">
@@ -74,7 +95,8 @@ function Register() {
                         </a>
                       </p>
                     </div>
-
+                    {error && (
+                      <div className="text-red-500 text-center mb-4">{error}</div>)}
                     <div className="mt-5">
                       {/* <!-- Grid --> */}
                       <div className="grid grid-cols-2 gap-4">
@@ -86,10 +108,9 @@ function Register() {
                               First Name
                             </label>
                             <input
-                              name="First Name"
+                              name="firstName"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                              value={user.firstName}
-                              onChange={(e) => setUser({...user, firstName: e.target.value})}
+                             required
 
                             />
                           </div>
@@ -105,11 +126,9 @@ function Register() {
                               Last Name
                             </label>
                             <input
-                              name="text"
+                              name="lastName"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                              value={user.lastName}
-                              onChange={(e) => setUser({...user, lastName: e.target.value})}
-
+                              required
                            />
                           </div>
                           {/* <!-- End Floating Input --> */}
@@ -126,38 +145,40 @@ function Register() {
                             <input
                               name="email"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-                              value={user.email}
-                              onChange={(e) => setUser({...user, email: e.target.value})}
-
-                           />
+                              required
+                          />
                           </div>
                           {/* <!-- End Floating Input --> */}
                         </div>
                         <div className="grid sm:grid-cols-2 gap-2 col-span-full">
-                          <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-                            <input
-                              type="radio"
-                              name="userole"
-                              className=" shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                              id="hs-radio-in-form"
-                            />
-                            <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
-                              Job Seeker
-                            </span>
-                          </label>
+        <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+          <input
+            type="radio"
+            name="userRole"
+            value="user"
+            className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+            id="hs-radio-in-form"
+           
+          />
+          <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
+            Job Seeker
+          </span>
+        </label>
 
-                          <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-                            <input
-                              type="radio"
-                              name="userole"
-                              className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                              id="hs-radio-checked-in-form"
-                            />
-                            <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
-                              Employer
-                            </span>
-                          </label>
-                        </div>
+        <label className="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
+          <input
+            type="radio"
+            name="userRole"
+            value="employer"
+            className="shrink-0 mt-0.5 border-gray-200 rounded-full text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+            id="hs-radio-checked-in-form"
+           
+          />
+          <span className="text-sm text-gray-500 ms-3 dark:text-gray-400">
+            Employer
+          </span>
+        </label>
+      </div>
                         {/* <!-- End Input Group --> */}
 
                         {/* <!-- Input Group --> */}
@@ -176,12 +197,12 @@ function Register() {
                               New password
                             </label>
                             <input
-                              type="password"
+                            required
+                            name="password"
+                              type="text"
                               id="hs-hero-signup-form-floating-input-new-password"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                               placeholder="********"
-                              value={user.password}
-                              onChange={(e) => setUser({...user, password: e.target.value})}
                             />
                           </div>
                           {/* <!-- End Floating Input --> */}
@@ -196,7 +217,9 @@ function Register() {
                               Confirm password
                             </label>
                             <input
-                              type="password"
+                            required
+                            name="confirmPassword"
+                              type="text"
                               id="hs-hero-signup-form-floating-input-new-password"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                               placeholder="********"
@@ -211,7 +234,7 @@ function Register() {
 
                       <div className="mt-5">
                         <button
-                          onClick={onSignup}
+                          type="submit"
                           className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                         >
                           Get started
@@ -234,4 +257,5 @@ function Register() {
     </>
   );
 }
+
 export default Register;
