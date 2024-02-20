@@ -11,8 +11,9 @@ function JobDetail(){
   
 
     return (
-
+      <>
   <DetailJob/>
+  </>
 
     )
 }
