@@ -76,8 +76,10 @@ function Addjob() {
         category :category,
         address : country + ", "+ street+", "+city+ ", "+postal 
        }),
+      
+      
     });
-
+    window.location.reload();
    
   }
 

@@ -31,7 +31,6 @@ import Me from "@/components/Me";
             <div className="text-center">
              
               <h1 className="text-4xl sm:text-6xl font-bold text-gray-800 dark:text-gray-200">
-             HI 
              <Suspense><Me/></Suspense>
              
               </h1>
@@ -49,7 +48,6 @@ import Me from "@/components/Me";
      
      <Suspense>
      <Jobss/>
-
      </Suspense>
 
       </>
