@@ -19,6 +19,7 @@ function Login() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
+    console.log(response.status);
     
     if (response.ok) {    
       response.json().then(data => {
