@@ -14,8 +14,6 @@ export async function GET(request:NextRequest){
         // Extract user ID from the authentication token
         const userId = await getDataFromToken(request);
         const role = await getRoleFromToken(request);    
-
-     
         console.log(role);
         console.log(userId);
         // Find the user in the database based on the user ID
