@@ -156,9 +156,9 @@ const Editjob: React.FC<JobProp> = ({data }) => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>                      
-                        <SelectItem value="parttime">Part time</SelectItem>
-                        <SelectItem value="fulltime">Full Time</SelectItem>
-                        <SelectItem value="contract">Contract</SelectItem>                      
+                        <SelectItem value="Part-time">Part time</SelectItem>
+                        <SelectItem value="Full-time">Full Time</SelectItem>
+                        <SelectItem value="Contract">Contract</SelectItem>                      
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -166,7 +166,7 @@ const Editjob: React.FC<JobProp> = ({data }) => {
                 {/* Pay */}
                 <div>
                   <Label className="text-left block mb-3" >Pay</Label>
-                  <Input id="pay" name="pay" type="number" value={formData.pay.toString()}  />
+                  <Input id="pay" name="pay" type="number" value={formData.pay.toString()} onChange={handleChange} />
                 </div>
                 {/* Category */}
                 <div>
@@ -176,12 +176,13 @@ const Editjob: React.FC<JobProp> = ({data }) => {
                       <SelectValue placeholder="Select Category"/>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup>                      
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="health">Health</SelectItem>
-                        <SelectItem value="sales">Sales</SelectItem>
-                        <SelectItem value="art">Art</SelectItem>
-                        <SelectItem value="others">Others</SelectItem>
+                      <SelectGroup>                 
+                      <SelectItem value="IT">IT</SelectItem>     
+                        <SelectItem value="Business">Business</SelectItem>
+                        <SelectItem value="Health">Health</SelectItem>
+                        <SelectItem value="Sales">Sales</SelectItem>
+                        <SelectItem value="Art">Art</SelectItem>
+                        <SelectItem value="Others">Others</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -203,8 +204,8 @@ const Editjob: React.FC<JobProp> = ({data }) => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="usa">USA</SelectItem>
-                        <SelectItem value="canada">Canada</SelectItem>
+                        <SelectItem value="Usa">USA</SelectItem>
+                        <SelectItem value="Canada">Canada</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>

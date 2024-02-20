@@ -1,5 +1,7 @@
+"use client"
 import ApplyFilter from "@/components/ApplyFilter";
 import JobListing from "@/components/JobListing";
+import { Suspense } from "react";
 
 function UserDashboard() {
   return (
@@ -104,7 +106,9 @@ function UserDashboard() {
               </div>
               {/* <!-- End SVG Element --> */}
             </div>
+            <Suspense>
             <ApplyFilter />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -112,7 +116,9 @@ function UserDashboard() {
 
       {/* <!-- Unicons --> */}
 
+      <Suspense>
       <JobListing />
+     </Suspense>
 
     </>
   );

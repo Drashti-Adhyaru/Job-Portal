@@ -35,12 +35,42 @@ type JobType = {
     getJobs();
   }, []);
 
+  function formatDataForDisplay(data :string) {
+
+    
+    
+
+  }
+  
+
   function truncateText(text: string, wordLimit: number) {
     const words = text.split(' ');
+    let data =""
     if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(' ') + '...';
+       data= words.slice(0, wordLimit).join(' ') + '...';
+   
+    const regex = /\*\*(.*?)\*\*/g;
+    const lines = data.split('\n');
+    let formattedTdata = '';
+  
+    for (const line of lines) {
+      if (line.trim().startsWith('-')) {
+        formattedTdata += `<br>${line.trim()}`;
+      } else {
+        formattedTdata += `${line.trim()}`;
+      }
+      formattedTdata += '\n';
     }
-    return text;
+     const newdata = formattedTdata.trim()
+  
+  // Replace ** symbols with <h2> and </h2> tags
+  const formattedText = newdata.replace(regex, '<h2 style="color:gray; font-weight:800 ">$1</h2>');
+
+//const modifiedString = data.replace(/\*\*/g, '<h2  style="color:gray; font-weight:800 ; margin-bottom:.5rem">Job Title:</h2>');
+    console.log(formattedText);
+    return   <div dangerouslySetInnerHTML={{ __html: formattedText }} />
+  }
+    
   }
 
   return (
@@ -49,8 +79,9 @@ type JobType = {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.6/css/line.css"
       />
-{jobs.map((job) => (
-        <div className="text-black" >
+      
+{ jobs && jobs.map((job) => (
+        <div className="text-black " >
           {/* {job.description} */}
           <div className="grid mx-20">
           {/* <!-- Question Listing Item Card --> */}

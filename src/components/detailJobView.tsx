@@ -6,6 +6,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import Editjob from "./EditJob ";
+import DeleteJob from "./DeleteJob";
 
 function DetailJob(){
   
@@ -27,6 +28,32 @@ function DetailJob(){
   let [uerid,setName] = React.useState("");
   const id = router.split('/')[1];
   //console.log(id)
+  const description = job?.description ? job.description.toString() : '';
+  function formatDataForDisplay(data :string) {
+
+    
+    const regex = /\*\*(.*?)\*\*/g;
+    const lines = data.split('\n');
+    let formattedTdata = '';
+  
+    for (const line of lines) {
+      if (line.trim().startsWith('-')) {
+        formattedTdata += `<br>${line.trim()}`;
+      } else {
+        formattedTdata += `${line.trim()}`;
+      }
+      formattedTdata += '\n';
+    }
+     const newdata = formattedTdata.trim()
+  
+  // Replace ** symbols with <h2> and </h2> tags
+  const formattedText = newdata.replace(regex, '<h2 style="color:gray; font-weight:800  ; margin-bottom:.5rem; margin-top:1rem">$1</h2>');
+
+//const modifiedString = data.replace(/\*\*/g, '<h2  style="color:gray; font-weight:800 ; margin-bottom:.5rem">Job Title:</h2>');
+    console.log(formattedText);
+    return   <div dangerouslySetInnerHTML={{ __html: formattedText }} />
+
+  }
   
   useEffect(() => {
     const sendGetRequest = async () => {
@@ -48,12 +75,15 @@ function DetailJob(){
 
     sendGetRequest(); // Call the function once when component mounts
   }, []); 
+
+
+  const jobId = job?._id;
     return (
 
   
 <>
 
-
+{job &&
 <div className="grid sm:mx-20  ">
         {/* <!-- Question Listing Item Card --> */}
         <div className="grid place-items-center" >
@@ -83,7 +113,7 @@ function DetailJob(){
 
       <div className=" text-lg  font-bold leading-8 text-black-800">
         Job Description
-      </div><p>{job?.description}</p>
+      </div><div>{formatDataForDisplay(description)}</div>
 
       <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt className="text-sm font-medium leading-6 text-gray-900">Salary</dt>
@@ -108,7 +138,7 @@ function DetailJob(){
     </div>
   </div>
   <div className={ `mt-6 flex items-center justify-end gap-x-2 ${ job?.userId === uerid? "bock":"hidden"} `} >
-    <Button type="button" href="/user/dashboard" className="rounded-md bg-gray-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Delete</Button>
+   {job && <DeleteJob _id={job._id}/>}
     <div>
     {job && <Editjob data={job} />}
     </div>
@@ -118,6 +148,7 @@ function DetailJob(){
           </div>
           </div>
       </div>
+}
         </>
     )
 }

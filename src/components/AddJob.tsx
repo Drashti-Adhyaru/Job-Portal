@@ -72,7 +72,7 @@ function Addjob() {
         type :type , 
         phone : phone,
         email : email,
-        pay : type,
+        pay : pay,
         category :category,
         address : country + ", "+ street+", "+city+ ", "+postal 
        }),
@@ -99,6 +99,8 @@ function Addjob() {
             <DialogTitle>Add Job</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit}>
+          {error && (
+                      <div className="text-red-500 text-center mb-4">{error}</div>)}
             <div className="grid gap-4 py-4">
               {/* Title */}
               <div>
@@ -126,9 +128,9 @@ function Addjob() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>                      
-                        <SelectItem value="parttime">Part time</SelectItem>
-                        <SelectItem value="fulltime">Full Time</SelectItem>
-                        <SelectItem value="contract">Contract</SelectItem>                      
+                        <SelectItem value="Part-time">Part time</SelectItem>
+                        <SelectItem value="Full-time">Full Time</SelectItem>
+                        <SelectItem value="Contract">Contract</SelectItem>                      
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -146,12 +148,13 @@ function Addjob() {
                       <SelectValue placeholder="Select Category"/>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup>                      
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="health">Health</SelectItem>
-                        <SelectItem value="sales">Sales</SelectItem>
-                        <SelectItem value="art">Art</SelectItem>
-                        <SelectItem value="others">Others</SelectItem>
+                      <SelectGroup>      
+                      <SelectItem value="IT">IT</SelectItem>                
+                        <SelectItem value="Business">Business</SelectItem>
+                        <SelectItem value="Health">Health</SelectItem>
+                        <SelectItem value="Sales">Sales</SelectItem>
+                        <SelectItem value="Art">Art</SelectItem>
+                        <SelectItem value="Others">Others</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -173,8 +176,8 @@ function Addjob() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="usa">USA</SelectItem>
-                        <SelectItem value="canada">Canada</SelectItem>
+                        <SelectItem value="Usa">USA</SelectItem>
+                        <SelectItem value="Canada">Canada</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>

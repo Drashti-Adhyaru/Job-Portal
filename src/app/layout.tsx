@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,7 +29,9 @@ export default function RootLayout({
       >
 
       <Navigation/>
+      <Suspense fallback={<Loading/>}>
         {children}
+        </Suspense>
         </header>
         <div 
         // className="absolute isolate px-6 pt-14 lg:px-8 "
