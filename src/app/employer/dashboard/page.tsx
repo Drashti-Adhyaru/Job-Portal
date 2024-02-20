@@ -1,12 +1,12 @@
 "use client"
+import { Suspense } from 'react'
 import Addjob from "@/components/AddJob";
 import ApplyFilter from "@/components/ApplyFilter";
 import Applyjob from "@/components/ApplyJob";
 import JobListing from "@/components/JobListing";
-import Jobs from "@/components/Jobs";
+import Jobss from "@/components/Jobss";
 import axios from "axios";
-import React, { useEffect } from "react";
-
+import Me from "@/components/Me";
  function  EmployerDashboard() {
   type UserType = {
     firstName : string,
@@ -20,15 +20,7 @@ import React, { useEffect } from "react";
 
   //const [userDetails, setUsers] = React.useState<UserType>();
 
-  async function getUser(){
-    const user = await axios.get("/api/users/me")
-    name = user.data.data.firstName
-  } 
-  useEffect(() => 
-  {
-  getUser();
-  }
-  )
+
 
     return (
       <>
@@ -39,7 +31,9 @@ import React, { useEffect } from "react";
             <div className="text-center">
              
               <h1 className="text-4xl sm:text-6xl font-bold text-gray-800 dark:text-gray-200">
-             HI {name}
+             HI 
+             <Suspense><Me/></Suspense>
+             
               </h1>
               <div className="mt-10">
     <Addjob/>
@@ -53,7 +47,10 @@ import React, { useEffect } from "react";
     <div></div>
         {/* <!-- Unicons --> */}
      
-  <Jobs/>
+     <Suspense>
+     <Jobss/>
+
+     </Suspense>
 
       </>
     );

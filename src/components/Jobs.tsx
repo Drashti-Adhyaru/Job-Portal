@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -25,6 +24,7 @@ import React, { useEffect, useState } from "react";
       try {
         const response = await axios.get("/api/jobs/jobsbyid");
         setJobs(response.data); // Assuming the data you need is in the response's data property
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -170,6 +170,8 @@ import React, { useEffect, useState } from "react";
           </div>
         </div>
       
+
+
         <div className="grid mx-20">
           {/* <!-- Question Listing Item Card --> */}
           <div className="grid place-items-center">
@@ -302,6 +304,10 @@ import React, { useEffect, useState } from "react";
             </div>
           </div>
         </div>
+
+
+
+      
         </>
     )
 }
