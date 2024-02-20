@@ -16,26 +16,11 @@ export async function GET(request:NextRequest){
         const userId = await getDataFromToken(request);
         const role = await getRoleFromToken(request);
         const url = new URL(request.url);
-        const type = url.searchParams.get('type');
-        const pay = url.searchParams.get('pay');
-        const category = url.searchParams.get('category');
-        const location = url.searchParams.get('location');
-
         const Jobswithusers = [];
         console.log(role);
         console.log(userId);
-    
-        const filter: Record<string, any> = {};
-
-        // Add filter conditions based on provided parameters
-        if (type) filter.type = type;
-        if (pay) filter.pay = pay;
-        if (category) filter.category = category;
-        if (location) filter.location = location;
-
-
-
-        const jobs = await Job.find(filter);
+        // Find the user in the database based on the user ID
+        const jobs = await Job.find({userId:userId});
         console.log(jobs);
 
         for (const job of jobs) {

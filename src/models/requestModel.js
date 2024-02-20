@@ -16,15 +16,15 @@ const requestSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['applied', 'rejected', 'accepted', 'pending'],
-        default: 'Pending'
+        default: 'pending'
     },
     employerStatus: {
         type: String,
-        enum: ['Viewed', 'Not Viewed'],
-        default: 'Not Viewed'
+        enum: ['viewed', 'not viewed'],
+        default: 'not viewed'
     },
     dateApplied: {
-        type: Date,
+        type: String,
         default: Date.now
     }
 });
