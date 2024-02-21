@@ -1,6 +1,7 @@
 "use client"
 import ApplyFilter from "@/components/ApplyFilter";
 import JobListing from "@/components/JobListing";
+
 import { Suspense } from "react";
 
 function UserDashboard() {

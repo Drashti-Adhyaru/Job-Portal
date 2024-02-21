@@ -1,6 +1,5 @@
 import ApplyFilter from "@/components/ApplyFilter";
 import JobListing from "@/components/JobListing";
-import Paging from "@/components/Paging";
 
 function AppliedList() {
     return (
@@ -38,8 +37,7 @@ function AppliedList() {
         {/* <!-- Unicons --> */}
      
   <JobListing/>
-  
-  <Paging/>
+
       </>
     );
   }
