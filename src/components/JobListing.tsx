@@ -15,7 +15,6 @@ type JobType = {
   address: string
 }
 
-
  async function Jobss() {
   const [jobs, setJobs] = useState<any[]>([]);
 
