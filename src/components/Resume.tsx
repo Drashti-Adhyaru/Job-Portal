@@ -20,6 +20,7 @@ const Resume: React.FC<idProps> = ({_id }) => {
     age: number,
     experience: string,
     aboutYou: string,
+    availibility: string,
     highestQualification: number,
     status:string ,
     address:string
@@ -32,7 +33,7 @@ const Resume: React.FC<idProps> = ({_id }) => {
   const id = _id ;
   //console.log(id)
  
-  
+
   useEffect(() => {
     const sendGetRequest = async () => {
       try {
@@ -41,6 +42,16 @@ const Resume: React.FC<idProps> = ({_id }) => {
             id: id,
           },
         });
+
+
+
+        const status = await fetch("/api/viewresponse?resumeId="+ id,  {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },  
+            
+          });
+
+
          console.log(response.data.data)
         setJob(response.data.data[0]);
       } catch (err) {
@@ -69,6 +80,9 @@ const Resume: React.FC<idProps> = ({_id }) => {
       <div className=" text-lg  font-bold leading-8 text-black-800">
         About You
       </div><div>{resume.aboutYou}</div>
+      <div className=" text-lg mt-4 font-bold leading-8 text-black-800">
+        Availability
+      </div><div>{resume.availibility}</div>
 
       <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt className="text-sm font-medium leading-6 text-gray-900">Experience</dt>

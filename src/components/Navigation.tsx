@@ -92,16 +92,7 @@ const Navigation = async () => {
           >
             Applied List
           </Link>
-          <Link
-            href="/employer/requestList"
-            className={`
-              ${pathname == "/employer/requestList"
-                ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"} ${user.role == "employer"?"block":"hidden"}
-            `}
-          >
-            Requests List
-          </Link>
+        
         </div>
         {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
@@ -112,8 +103,9 @@ const Navigation = async () => {
         <a href="/login"  className={`${user._id == ""||undefined ? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900`}>
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
+          
 
-          <button className={`${user._id != ""||undefined ? "block":"hidden"}`} onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
+          <button className={`${user._id != ""||undefined ? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900` } onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
         </div>
       </nav>
       <Dialog
@@ -153,25 +145,16 @@ const Navigation = async () => {
                 </Link>
                 <Link
                   href="/user/appliedList"
-                  className={
-                    pathname == "/user/appliedList"
+                  className={`
+                    ${pathname == "/user/appliedList"
                       ? "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-900 hover:bg-gray-500 "
-                      : "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-500 hover:bg-gray-500"
-                  }
+                      : "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-500 hover:bg-gray-500"} ${user.role == "user"?"block":"hidden"
+                  }`}
                 >
                   Applied List
                 </Link>
 
-                <Link
-                  href="/register"
-                  className={
-                    pathname == "/register"
-                      ? "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-900 hover:bg-gray-500 "
-                      : "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-500 hover:bg-gray-500"
-                  }
-                >
-                  Register
-                </Link>
+               
               </div>
               <div className="py-6">
                 <a

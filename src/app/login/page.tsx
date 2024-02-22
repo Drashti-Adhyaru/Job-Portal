@@ -74,7 +74,7 @@ function Login() {
               >
                 <div className="text-center mt-4">
                   <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                    Sign Up
+                    Sign In
                   </h1>
                   <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                     New member?

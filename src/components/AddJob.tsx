@@ -45,17 +45,17 @@ function Addjob() {
     const postal = formData.get("postal-code");
 
     if (
-      title == "" ||
-      companyName == "" ||
-      description == "" ||
-      type == "" ||
-      pay == "" ||
-      phone == "" ||
-      email == "" ||
-      category == "" ||
-      country == "" ||
-      street == "" ||
-      city == "" ||
+      // title == "" ||
+      // companyName == "" ||
+      // description == "" ||
+      // type == "" ||
+      // pay == "" ||
+      // phone == "" ||
+      // email == "" ||
+      // category == "" ||
+      // country == "" ||
+      // street == "" ||
+      // city == "" ||
       postal == ""
     ) {
       setError("All fields are required");
@@ -79,7 +79,9 @@ function Addjob() {
       
       
     });
-    window.location.reload();
+     if(response.status == 200){
+      window.location.reload();
+     }
    
   }
 
