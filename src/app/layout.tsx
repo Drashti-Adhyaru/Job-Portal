@@ -27,8 +27,9 @@ export default function RootLayout({
       <header 
       // className="absolute inset-x-0 top-0 z-50  fixed top-0 " 
       >
-
+       <Suspense>
       <Navigation/>
+      </Suspense>
       <Suspense fallback={<Loading/>}>
         {children}
         </Suspense>

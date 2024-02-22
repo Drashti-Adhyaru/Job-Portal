@@ -23,13 +23,8 @@ function JobListing() {
   const pay = searchParams.get('pay') || 'all';
   const location = searchParams.get('location') || '';
   
-
-
-
-
-
-
-  const [jobs, setJobs] = useState<JobType[]>([]);
+ async function Jobss() {
+  const [jobs, setJobs] = useState<any[]>([]);
 
   useEffect(() => {
     async function getJobs() {
@@ -150,6 +145,6 @@ function JobListing() {
       ))}
     </>
   );
-}
+}}
 
 export default JobListing;

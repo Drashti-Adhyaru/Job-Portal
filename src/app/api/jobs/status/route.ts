@@ -22,7 +22,7 @@ export async function GET(request:NextRequest){
         console.log(role);
         console.log(userId);
         // Find the user in the database based on the user ID
-        const requests = await Request.find({status: status, userId:userId});
+        const requests = await Request.find({userId:userId});
         console.log(requests);
 
         for (const request of requests) {

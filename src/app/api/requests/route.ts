@@ -2,20 +2,35 @@ import { getDataFromToken } from "@/app/helper/getDataFromToken";
 import { getRoleFromToken } from "@/app/helper/getRoleFromToken";
 import {connect} from "@/dbConfig/dbConfig";
 import Request from "@/models/requestModel";
+import Resume from "@/models/resumeModel";
 import { NextRequest, NextResponse } from "next/server";
 
 connect()
 
 export async function GET(request:NextRequest){
 
-    const userId = await getDataFromToken(request);
-
+   // const userId = await getDataFromToken(request);
+   const searchParams = request.nextUrl.searchParams;
+   const Id = searchParams.get('id');
     try {
-        const requests = await Request.find({userId:userId});
+        const requests = await Request.find({jobId:Id});
+        const resumesArray = [];
+        if (requests && requests.length > 0){
+            for (const request of requests) {
+                const resumeData = await await Resume.find({_id:request.resumeId});
+                          
+                // Assuming fetchResumeById is an async function that calls another API
+                resumesArray.push(resumeData);
+            }
+            console.log( "array value"+ resumesArray);
+        }
         return NextResponse.json({
             message: "Requests found",
-            data: requests
+            data: resumesArray
         })
+
+       
+        
     } catch (error: any) {
         return NextResponse.json({error: error.message}, {status: 400})
         
@@ -111,25 +126,33 @@ export async function POST(request: NextRequest){
 
     export async function PUT(request: NextRequest) {
         try {
+            console.log("reached API")
             const userId = await getDataFromToken(request);
             const role = await getRoleFromToken(request);
     
             const url = new URL(request.url);
-            const requestId = url.searchParams.get('requestId');
-        
+            const resumeid = url.searchParams.get('resumeId');
+
+            const requestId = await Request.findOne({resumeId :resumeid} )
+           
+            console.log(requestId);
             const reqBody = await request.json();
-            const { resumeId,
-                employerStatus,
+          
+            const { 
+                status,
                 dateApplied } = reqBody;
-    
+                const rId = requestId._id;
+
+                console.log("request Id : "+rId);
             const updatedRequest = await Request.findOneAndUpdate(
-                { _id: requestId, userId },
+                { _id: rId },
                 { 
-                    resumeId,
-                    employerStatus,
+                    rId,
+                    status ,
                     dateApplied,  },
                 { new: true } // Return the updated document
             );
+            console.log(updatedRequest);
     
             if (!updatedRequest) {
                 throw new Error("Request not found or you are not authorized to update it.");

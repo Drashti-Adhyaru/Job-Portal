@@ -1,5 +1,7 @@
-import ApplyFilter from "@/components/ApplyFilter";
+"use client"
 import JobListing from "@/components/JobListing";
+import MyAppliedLists from "@/components/MyAppliedLists";
+import { Suspense } from "react";
 
 function AppliedList() {
     return (
@@ -35,9 +37,10 @@ function AppliedList() {
         {/* <!-- End Hero --> */}
   
         {/* <!-- Unicons --> */}
-     
-  <JobListing/>
-
+    <Suspense>
+  <MyAppliedLists/>
+  </Suspense> 
+  
       </>
     );
   }
