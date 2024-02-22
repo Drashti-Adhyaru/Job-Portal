@@ -32,7 +32,7 @@ const ViewJob: React.FC<idProps> = ({_id }) => {
   let [uerid,setName] = React.useState("");
   const id = _id ;
   //console.log(id)
-  const description = job?.description ? job.description.toString() : '';
+  const description = job?.description ? job.description+"" : '';
   function formatDataForDisplay(data :string) {
 
     

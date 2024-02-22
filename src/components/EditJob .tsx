@@ -166,7 +166,7 @@ const Editjob: React.FC<JobProp> = ({data }) => {
                 {/* Pay */}
                 <div>
                   <Label className="text-left block mb-3" >Pay</Label>
-                  <Input id="pay" name="pay" type="number" value={formData.pay.toString()} onChange={handleChange} />
+                  <Input id="pay" name="pay" type="number" value={formData.pay+""} onChange={handleChange} />
                 </div>
                 {/* Category */}
                 <div>
@@ -189,7 +189,7 @@ const Editjob: React.FC<JobProp> = ({data }) => {
                 </div>
                 <div>
                   <Label className="text-left block" >Phone</Label>
-                  <Input id="city" type="number" value={formData.phone.toString()} onChange={handleChange} name="phone" />
+                  <Input id="city" type="number" value={formData.phone+""} onChange={handleChange} name="phone" />
                 </div>
                 <div>
                   <Label className="text-left block">Email</Label>
