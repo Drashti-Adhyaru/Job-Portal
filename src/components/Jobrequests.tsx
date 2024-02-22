@@ -1,9 +1,12 @@
 "use client"
 import axios from "axios";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import { Button } from "./ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import ViewJob from "./ViewJob";
+import Resume from "./Resume";
 
 
 function Jobrequests() {
@@ -45,26 +48,11 @@ function Jobrequests() {
       if (words.length > wordLimit) {
          data= words.slice(0, wordLimit).join(' ') + '...';
      
-      const regex = /\*\*(.*?)\*\*/g;
-      const lines = data.split('\n');
-      let formattedTdata = '';
+     
+       const newdata = data.trim()
     
-      for (const line of lines) {
-        if (line.trim().startsWith('-')) {
-          formattedTdata += `<br>${line.trim()}`;
-        } else {
-          formattedTdata += `${line.trim()}`;
-        }
-        formattedTdata += '\n';
-      }
-       const newdata = formattedTdata.trim()
-    
-    // Replace ** symbols with <h2> and </h2> tags
-    const formattedText = newdata.replace(regex, '<h2 style="color:gray; font-weight:800 ">$1</h2>');
-  
-  //const modifiedString = data.replace(/\*\*/g, '<h2  style="color:gray; font-weight:800 ; margin-bottom:.5rem">Job Title:</h2>');
-      console.log(formattedText);
-      return   <div dangerouslySetInnerHTML={{ __html: formattedText }} />
+   
+      return  newdata;
     }
       
     }
@@ -255,12 +243,32 @@ function Jobrequests() {
                   {/* <!-- User --> */}
                   <div className="col-none mt-2 mr-2 lg:block lg:col-start-9 lg:col-end-12">
                     <div className=" lg:flex lg:flex-1 lg:justify-end">
-                    <a
-                        href="2/resume"
-                        className="text-md font-semibold leading-6 text-[#471c788a]"
-                      >
-                        View Resume <span aria-hidden="true">&rarr;</span>
-                      </a>
+                    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">View Resume</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[625px] sm:w-[620px">
+        <DialogHeader>
+          <DialogTitle>{req[0].firstName}   {req[0].lastName}</DialogTitle>
+          <DialogDescription >
+          <Suspense>
+            <Resume _id = {req[0]._id}/>
+          </Suspense>
+          </DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center space-x-2">
+          <div className="grid flex-1 gap-2">
+           
+          </div>
+         
+        </div>
+        <DialogFooter className="sm:justify-start">
+          <DialogClose asChild>
+           
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
                     </div>
                   </div>
                 </div>
