@@ -11,11 +11,6 @@ import Resume from "./Resume";
 
 function Jobrequests() {
 
-
-
-
-
-
   const router = usePathname();
     const [jobreq, setJobs] = useState<any[]>([]);
      console.log(jobreq)
@@ -68,8 +63,8 @@ function Jobrequests() {
 
 
     async function onChangeStatue(value : string, id :string){
-     
-      const response = await fetch("/api/requests?resumeId=="+ id,  {
+     console.log(value+"  "+id);
+      const response = await fetch("/api/requests?resumeId="+ id,  {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

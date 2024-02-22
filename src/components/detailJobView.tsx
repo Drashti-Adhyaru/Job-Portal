@@ -28,7 +28,7 @@ function DetailJob(){
   let [uerid,setName] = React.useState("");
   const id = router.split('/')[1];
   //console.log(id)
-  const description = job?.description ? job.description.toString() : '';
+  const description = job?.description ? job.description+"" : '';
   function formatDataForDisplay(data :string) {
 
     
