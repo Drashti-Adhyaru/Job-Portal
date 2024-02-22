@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -22,14 +22,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-function Addjob() {
-  const [showModal, setShowModal] = useState(false);
 
+interface JobProp {
+  data : {
+    _id: string,
+    userId: string,
+    title: string,
+    companyName: string,
+    description: string,
+    type: string,
+    pay: number,
+    email:string,
+    phone:number,
+    category: string,
+    address: string
+  }
+  // Add more properties if needed
+}
 
+const Editjob: React.FC<JobProp> = ({data }) => {
+  const [formData, setFormData] = useState(data);
+
+  const jobid = data._id;
+//  console.log(jobid);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
   const [error, setError] = useState("");
+
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const formData = new FormData(event.currentTarget);
     const title = formData.get("title");
     const companyName = formData.get("companyName");
@@ -61,9 +89,9 @@ function Addjob() {
       setError("All fields are required");
       return;
     }
-
-    const response = await fetch("/api/jobs", {
-      method: "POST",
+    console.log(jobid)
+    const response = await fetch("/api/jobs?jobId="+ jobid,  {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         title : title,
@@ -89,41 +117,41 @@ function Addjob() {
         <DialogTrigger asChild>
           <Button
             variant="outline"
-            className="rounded-md bg-[#726cf88a] w-60 bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#726cf88a] bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+            className="rounded-md bg-[#726cf88a] w-40 bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#726cf88a] bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
           >
-            Add Job
+            Edit Job
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[625px]">
           <DialogHeader>
-            <DialogTitle>Add Job</DialogTitle>
+            <DialogTitle>Edit Job</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit}>
           {error && (
                       <div className="text-red-500 text-center mb-4">{error}</div>)}
+          <form onSubmit={handleSubmit}>
             <div className="grid gap-4 py-4">
               {/* Title */}
               <div>
-                <Label className="text-left block">Title</Label>
-                <Input id="title" name="title" />
+                <Label className="text-left block">Title </Label>
+                <Input id="title" value={formData.title}  onChange={handleChange} name="title" />
               </div>
               {/* Company Name */}
               <div>
                 <Label className="text-left block">Company Name</Label>
-                <Input id="companyName" name="companyName" />
+                <Input id="companyName" value={formData.companyName} onChange={handleChange} name="companyName" />
               </div>
               {/* Description */}
               <div>
                 <Label className="text-left block">Description</Label>
-                <Textarea id="description" name="description" />
+                <Textarea id="description" value={formData.description}  onChange={handleChange} name="description" />
               </div>
               {/* Two columns layout */}
               <div className="grid grid-cols-2 gap-4">
                 {/* Type */}
                 <div>
                   <Label className="text-left block mb-3">Type</Label>
-                  <Select name="type">
-                    <SelectTrigger className="w-[180px]">
+                  <Select name="type" disabled value={formData.type} >
+                    <SelectTrigger className="w-[250px]">
                       <SelectValue placeholder="Select Type"/>
                     </SelectTrigger>
                     <SelectContent>
@@ -137,19 +165,19 @@ function Addjob() {
                 </div>
                 {/* Pay */}
                 <div>
-                  <Label className="text-left block mb-3">Pay</Label>
-                  <Input id="pay" name="pay" type="number" />
+                  <Label className="text-left block mb-3" >Pay</Label>
+                  <Input id="pay" name="pay" type="number" value={formData.pay+""} onChange={handleChange} />
                 </div>
                 {/* Category */}
                 <div>
                   <Label className="text-left block mb-3">Category</Label>
-                  <Select name="category">
-                    <SelectTrigger className="w-[180px]">
+                  <Select name="category" disabled  value={formData.category}>
+                    <SelectTrigger className="w-[250px]">
                       <SelectValue placeholder="Select Category"/>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup>      
-                      <SelectItem value="IT">IT</SelectItem>                
+                      <SelectGroup>                 
+                      <SelectItem value="IT">IT</SelectItem>     
                         <SelectItem value="Business">Business</SelectItem>
                         <SelectItem value="Health">Health</SelectItem>
                         <SelectItem value="Sales">Sales</SelectItem>
@@ -160,18 +188,18 @@ function Addjob() {
                   </Select>
                 </div>
                 <div>
-                  <Label className="text-left block">Phone</Label>
-                  <Input id="city" type="number" name="phone" />
+                  <Label className="text-left block" >Phone</Label>
+                  <Input id="city" type="number" value={formData.phone+""} onChange={handleChange} name="phone" />
                 </div>
                 <div>
                   <Label className="text-left block">Email</Label>
-                  <Input id="city" name="email" />
+                  <Input id="city" name="email" onChange={handleChange} value={formData.email}/>
                 </div>
                 {/* Country */}
                 <div>
-                  <Label className="text-left block mb-3">Country</Label>
-                  <Select name = "country">
-                    <SelectTrigger className="w-[180px]">
+                  <Label className="text-left block mb-3" >Country</Label>
+                  <Select name = "country"  disabled value={formData.address.split(",")[0]} >
+                    <SelectTrigger className="w-[250px]">
                       <SelectValue placeholder="Select Country"/>
                     </SelectTrigger>
                     <SelectContent>
@@ -186,19 +214,19 @@ function Addjob() {
            
                 {/* Street */}
                 <div>
-                  <Label className="text-left block">Street</Label>
-                  <Input id="street" name="street" />
+                  <Label className="text-left block" >Street</Label>
+                  <Input id="street" name="street" onChange={handleChange} value={formData.address.split(",")[1]} />
                 </div>
                 {/* City */}
                 <div>
-                  <Label className="text-left block">City</Label>
-                  <Input id="city" name="city" />
+                  <Label className="text-left block"  >City</Label>
+                  <Input id="city" name="city" onChange={handleChange} value={formData.address.split(",")[2]}/>
                 </div>
            
                 {/* Postal Code */}
                 <div>
                   <Label className="text-left block">Postal Code</Label>
-                  <Input id="postal-code" name="postal-code" />
+                  <Input id="postal-code" name="postal-code" onChange={handleChange} value={formData.address.split(",")[3]} />
                 </div>
               </div>
             </div>
@@ -218,4 +246,4 @@ function Addjob() {
 }
 
 // Export the App component
-export default Addjob;
+export default Editjob;

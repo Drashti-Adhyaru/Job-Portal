@@ -15,13 +15,14 @@ type JobType = {
   address: string
 }
 
+
  async function Jobss() {
   const [jobs, setJobs] = useState<any[]>([]);
 
   useEffect(() => {
     async function getJobs() {
       try {
-        const response = await axios.get("/api/jobs");
+        const response = await axios.get("/api/jobs/jobsbyid");
         if (response.status === 200) {
           console.log(response.data); // Make sure the data structure is as expected
           setJobs(response.data.data); // Set the fetched data to the state
@@ -78,8 +79,9 @@ type JobType = {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.6/css/line.css"
       />
-{jobs.map((job) => (
-        <div className="text-black" >
+      
+{ jobs && jobs.map((job) => (
+        <div className="text-black " >
           {/* {job.description} */}
           <div className="grid mx-20">
           {/* <!-- Question Listing Item Card --> */}
@@ -202,9 +204,13 @@ type JobType = {
                     {/* <!-- User --> */}
                     <div className="col-none mt-2 mr-2 lg:block lg:col-start-9 lg:col-end-12">
                     <div className=" lg:flex lg:flex-1 lg:justify-end">
+                    <a href={`/employer/${job._id}/requestList`} className="text-lg mr-4 font-semibold leading-6 text-gray-800">
+                Resonse <span aria-hidden="true"></span>
+              </a>
               <a href={`/${job._id}/jobdetails`} className="text-lg font-semibold leading-6 text-pink-900">
                 View Job <span aria-hidden="true">&rarr;</span>
               </a>
+            
             </div>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
-import ApplyFilter from "@/components/ApplyFilter";
-import JobListing from "@/components/JobListing";
+
 import Jobrequests from "@/components/Jobrequests";
-import Paging from "@/components/Paging";
+import { Suspense } from "react";
+
 
 function RequestLists() {
     return (
@@ -37,10 +37,12 @@ function RequestLists() {
         {/* <!-- End Hero --> */}
   
         {/* <!-- Unicons --> */}
-     
+
+   <Suspense>
   <Jobrequests/>
+  </Suspense> 
   
-  <Paging/>
+ 
       </>
     );
   }

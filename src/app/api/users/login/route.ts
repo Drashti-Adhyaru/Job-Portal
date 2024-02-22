@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken"
 import console from "console";
+require("dotenv").config();
 
 connect()
 // Calls the connect function to establish a connection to the database.
@@ -13,6 +14,7 @@ export async function POST(request: NextRequest){
         const reqBody = await request.json()
         const {email, password} = reqBody
        console.log(reqBody)
+       console.log(process.env.TOKEN_SECRET);
         //check if user exists
         const user = await User.findOne({email})
         console.log(user)

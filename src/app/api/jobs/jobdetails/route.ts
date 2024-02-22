@@ -12,28 +12,20 @@ export async function GET(request:NextRequest){
     try {
 
         // Extract user ID from the authentication token
+        const searchParams = request.nextUrl.searchParams;
+        const Id = searchParams.get('id');
         const userId = await getDataFromToken(request);
-        const role = await getRoleFromToken(request);
-        const url = new URL(request.url);
-        const status = url.searchParams.get('status');
-        const requestsWithJobs = [];
-
-        console.log(status);
-        console.log(role);
-        console.log(userId);
+        const role = await getRoleFromToken(request);    
+       // console.log(role);
+       // console.log(userId);
         // Find the user in the database based on the user ID
-        const requests = await Request.find({userId:userId});
-        console.log(requests);
+        const requests = await Job.find({_id:Id});
+        //console.log(requests);
 
-        for (const request of requests) {
-            const job = await Job.findOne({ _id: request.jobId }); // Assuming jobId is the reference to the job
-            if (job) {
-                requestsWithJobs.push({ request, job });
-            }
-        }
+     
         return NextResponse.json({
             message: "Requests found with associated jobs",
-            data: requestsWithJobs
+            data: requests
         });
     } catch (error: any) {
         return NextResponse.json({error: error.message}, {status: 400})

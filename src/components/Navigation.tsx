@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useRouter } from "next/navigation";
 
@@ -8,10 +8,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 
-const Navigation = () => {
+const Navigation = async () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+ const [user, setUser] = useState<any>([]);
+ useEffect(() => {
+  async function getUser() {
+    try {
+      const user = await axios.get("/api/users/me");
+      if (user.status === 200) {
+        console.log(user.data.data); // Make sure the data structure is as expected
+        setUser(user.data.data); // Set the fetched data to the state
+      }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+    }
+  }
+
+  getUser();
+}, []);
 
   const logout = async () => {
     try {
@@ -46,46 +62,58 @@ const Navigation = () => {
         </div>
 
         <div className="hidden lg:flex lg:gap-x-12">
-          <Link
+        <Link
             href="/"
-            className={
-              pathname == "/"
+            className={`
+              ${pathname == "/"
                 ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"
-            }
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user.role == "user"?"block":"hidden"}
+            `}
+          >
+            Home
+          </Link>
+          <Link
+            href="/employer/dashboard"
+            className={`
+              ${pathname == "/employer/dashboard"
+                ? "text-sm font-bold leading-6 text-gray-900 "
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user.role == "employer"?"block":"hidden"}
+            `}
           >
             Home
           </Link>
           <Link
             href="/user/appliedList"
-            className={
-              pathname == "/user/appliedList"
+            className={`
+              ${pathname == "/user/appliedList"
                 ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"
-            }
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user.role == "user"?"block":"hidden"}
+            `}
           >
             Applied List
           </Link>
-
           <Link
-            href="/register"
-            className={
-              pathname == "/register"
+            href="/employer/requestList"
+            className={`
+              ${pathname == "/employer/requestList"
                 ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"
-            }
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user.role == "employer"?"block":"hidden"}
+            `}
           >
-            Register
+            Requests List
           </Link>
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
-        </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        </div> */}
+        <div className="lg:flex lg:flex-1 lg:justify-end">
+        <a href="/login"  className={`${user._id == ""||undefined ? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900`}>
+            Log in <span aria-hidden="true">&rarr;</span>
+          </a>
 
-          <button onClick={logout} > Logout</button>
+          <button className={`${user._id != ""||undefined ? "block":"hidden"}`} onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
         </div>
       </nav>
       <Dialog

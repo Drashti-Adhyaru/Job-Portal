@@ -31,8 +31,8 @@ const resumeSchema = new mongoose.Schema({
     },
     availability: {
         type: String,
-        enum: ['Full Time', 'Part Time', 'Contract', 'Internship'],
-        default: 'Full Time'
+
+        
     },
     address: {
         type: String,
@@ -40,8 +40,8 @@ const resumeSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Employed', 'Unemployed'],
-        default: 'Unemployed'
+        required: true
+       
     }
 });
 
