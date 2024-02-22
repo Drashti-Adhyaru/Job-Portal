@@ -29,7 +29,7 @@ const resumeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    availability: {
+    availibility: {
         type: String,
 
         

@@ -8,8 +8,10 @@ connect()
 
 export async function GET(request:NextRequest){
     try {
-        const userId = await getDataFromToken(request);
-        const resumes = await Resume.find({userId:userId});
+
+        const searchParams = request.nextUrl.searchParams;
+        const id = searchParams.get('id');
+        const resumes = await Resume.find({_id:id});
         return NextResponse.json({
             message: "Resume found",
             data: resumes

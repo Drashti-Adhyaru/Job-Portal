@@ -113,11 +113,11 @@ export async function POST(request: NextRequest){
             const jobId = url.searchParams.get('jobId');
         
             const reqBody = await request.json();
-            const { title, companyName, description, type, pay, category, address } = reqBody;
+            const { title, companyName, description, pay } = reqBody;
     
             const updatedJob = await Job.findOneAndUpdate(
                 { _id: jobId, userId },
-                { title, companyName, description, type, pay, category, address },
+                { title, companyName, description, pay },
                 { new: true } // Return the updated document
             );
     
