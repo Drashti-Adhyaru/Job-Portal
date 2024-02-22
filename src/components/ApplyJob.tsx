@@ -106,7 +106,7 @@ const Addjob: React.FC<idProps> = ({_id }) => {
          }),      
       });
     }
-   // window.location.reload();
+   window.location.reload();
   
    
   }
