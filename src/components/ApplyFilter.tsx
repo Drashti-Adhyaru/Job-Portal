@@ -1,28 +1,12 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-function ApplyFilter() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const category = formData.get("category") as string;
-    const type = formData.get("type") as string;
-    const pay = formData.get("pay") as string;
-    const location = formData.get("location") as string;
-
-    // Update searchParams
-    setSearchParams({ category, type, pay, location });
-
-    // Note: You don't need to manually update the URL with useRouter
-    // It will automatically update with the new searchParams
+function ApplyFilter({ onFilterChange }: { onFilterChange: (name: string, value: string) => void }) {
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const { name, value } = event.target;
+    onFilterChange(name, value);
   };
 
     return (
         <>
-         <form onSubmit={handleSubmit}>
+         <form>
                 <div className="mt-10 sm:mt-20 flex flex-row gap-x-4 gap-y-4 items-end justify-center flex-wrap">
                   <div className=".space-y-2 flex flex-col items-center">
                     <label className="text-gray-600 mr-2">Category</label>
@@ -30,6 +14,7 @@ function ApplyFilter() {
                       id="category"
                       name="category"
                       className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      onChange={handleFilterChange}
                     >
                       <option value="all">All</option>
                       <option value="web">Web Development</option>
@@ -47,6 +32,7 @@ function ApplyFilter() {
                       id="type"
                       name="type"
                       className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      onChange={handleFilterChange}
                     >
                       <option value="all">All</option>
                       <option value="full-time">Full-Time</option>
@@ -61,6 +47,7 @@ function ApplyFilter() {
                       id="pay"
                       name="pay"
                       className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                      onChange={handleFilterChange}
                     >
                       <option value="all">All</option>
                       <option value="hourly">Hourly</option>
@@ -77,6 +64,7 @@ function ApplyFilter() {
                       name="location"
                       className="bg-white border border-gray-300 rounded-md py-2 px-3 w-40 text-gray-700 focus:outline-none focus:border-blue-500"
                       placeholder="Enter city or country"
+                      onChange={handleFilterChange}
                     />
                   </div>
                   <div className="space-y-2 flex flex-col items-center">
