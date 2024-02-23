@@ -20,7 +20,8 @@ async function getUser(){
     )
     return(
         <>
-        Hello Its Me {name}
+        
+        Hello  {name}
         </>
     );
 }

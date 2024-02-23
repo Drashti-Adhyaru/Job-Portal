@@ -2,6 +2,7 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -231,12 +232,14 @@ const Editjob: React.FC<JobProp> = ({data }) => {
               </div>
             </div>
             <DialogFooter>
+            <DialogClose asChild>
               <Button
                 type="submit"
                 className="rounded-md bg-[#726cf88a] w-60 bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#726cf88a] bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
               >
                 Save changes
               </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </DialogContent>

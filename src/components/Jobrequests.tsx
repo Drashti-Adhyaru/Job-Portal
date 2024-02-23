@@ -32,23 +32,25 @@ function Jobrequests() {
   console.log(jobreq);
   const id = router.split("/")[2];
 
-  useEffect(() => {
-    async function getJobs() {
-      try {
-        const response = await axios.get("/api/requests", {
-          params: {
-            id: id,
-          },
-        });
-        if (response.status === 200) {
-           console.log(response)
+  async function getJobs() {
+    try {
+      const response = await axios.get("/api/requests", {
+        params: {
+          id: id,
+        },
+      });
+      if (response.status === 200) {
+         console.log(response)
 
-          setJobs(response.data.data); // Set the fetched data to the state
-        }
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
+        setJobs(response.data.data); // Set the fetched data to the state
       }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
     }
+  }
+
+  useEffect(() => {
+ 
 
     getJobs();
   }, []);
@@ -82,7 +84,12 @@ function Jobrequests() {
         status: value,
         dateApplied: getCurrentDate(),
       }),
+
     });
+     if(response.status ==200){
+      getJobs();
+     }
+    
   }
 
   async function checkstatus(){
