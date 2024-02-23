@@ -2,6 +2,7 @@
 import React, { FormEvent, useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -235,12 +236,14 @@ const Addjob: React.FC<idProps> = ({_id }) => {
 
                 <div className="flex justify-end space-x-2">
                 <DialogFooter>
+                <DialogClose asChild>
               <Button
                 type="submit"
                 className="rounded-md bg-[#726cf88a] w-60 bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#726cf88a] bg-gradient-to-br from-[#9996d6bf] to-[#e975a8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
               >
                 Save changes
               </Button>
+              </DialogClose>
             </DialogFooter>
                 </div>
               </form>
