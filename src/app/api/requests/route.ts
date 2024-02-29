@@ -132,18 +132,19 @@ export async function POST(request: NextRequest){
     
             const url = new URL(request.url);
             const resumeid = url.searchParams.get('resumeId');
-            const requestId = await Request.findOne({resumeId :resumeid} )
+            const requestId = await Request.findOne({resumeId :resumeid} );
            
             const reqBody = await request.json();
-          
+            const rid = requestId._id;
             const { 
                 status,
                 dateApplied } = reqBody;
-    
+                console.log( "this is id"+ rid);
+
             const updatedRequest = await Request.findOneAndUpdate(
-                { _id: requestId, userId },
+                { _id: rid },
                 { 
-                    requestId,
+                    
                     status ,
                     dateApplied,  },
                 { new: true } // Return the updated document
