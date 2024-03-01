@@ -1,23 +1,9 @@
 "use client"
 import ApplyFilter from "@/components/ApplyFilter";
 import JobListing from "@/components/JobListing";
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 
 function UserDashboard() {
-  const [filters, setFilters] = useState({
-    category: "all",
-    type: "all",
-    pay: "all",
-    location: ""
-  });
-
-  const handleFilterChange = (name: string, value: string) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value
-    }));
-  };
-  
   return (
     <>
       {/* <!-- Hero --> */}
@@ -37,9 +23,9 @@ function UserDashboard() {
               <form>
                 <div className="relative z-10 flex space-x-3 p-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
                   <div className="flex-[1_0_0%]">
-                    <div className="block text-sm text-gray-700 font-medium dark:text-white">
+                    <label className="block text-sm text-gray-700 font-medium dark:text-white">
                       <span className="sr-only">Search article</span>
-                    </div>
+                    </label>
                     <input
                       type="email"
                       name="hs-search-article-1"
@@ -65,7 +51,6 @@ function UserDashboard() {
                     </a>
                   </div>
                 </div>
-                
               </form>
               {/* <!-- End Form -->
   
@@ -121,7 +106,9 @@ function UserDashboard() {
               </div>
               {/* <!-- End SVG Element --> */}
             </div>
-            <ApplyFilter onFilterChange={handleFilterChange} />
+            <Suspense>
+            <ApplyFilter />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -130,12 +117,7 @@ function UserDashboard() {
       {/* <!-- Unicons --> */}
 
       <Suspense>
-      <JobListing
-          category={filters.category}
-          type={filters.type}
-          pay={filters.pay}
-          location={filters.location}
-        />
+      <JobListing />
      </Suspense>
 
     </>
