@@ -1,12 +1,8 @@
-import { getDataFromToken } from "@/app/helper/getDataFromToken";
-import { getRoleFromToken } from "@/app/helper/getRoleFromToken";
 import { connect } from "@/dbConfig/dbConfig";
 import Job from "@/models/jobModel";
-import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import { ObjectId } from "mongoose";
 
-connect();
+connect()
 
 export async function GET(request:NextRequest){
     try {
@@ -22,8 +18,7 @@ export async function GET(request:NextRequest){
         }
 
 
-        // const jobs = await Job.find();
-        const jobs = await Job.find(filter);
+        const jobs = searchQuery ? await Job.find(filter) : await Job.find();
 
         return NextResponse.json({
             message: "Jobs found",
@@ -34,5 +29,4 @@ export async function GET(request:NextRequest){
         
     }
 }
-
 

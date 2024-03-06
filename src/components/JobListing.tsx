@@ -15,15 +15,16 @@ type JobType = {
   address: string
 }
 
- async function JobListing() {
+ async function Jobss({ searchQuery }: { searchQuery: string }) {
   const [jobs, setJobs] = useState<any[]>([]);
 
   useEffect(() => {
     async function getJobs() {
       try {
-        const response = await axios.get("/api/jobs");
+        const url = searchQuery ? `/api/jobs/search?search=${searchQuery}` : "/api/jobs";
+        const response = await axios.get(url);
         if (response.status === 200) {
-          console.log(response.data); // Make sure the data structure is as expected
+          console.log(response.data); 
           setJobs(response.data.data); // Set the fetched data to the state
         }
       } catch (error) {
@@ -32,8 +33,8 @@ type JobType = {
     }
 
     getJobs();
-  }, []);
-
+  }, [searchQuery]);
+  
 
   function truncateText(text: string, wordLimit: number) {
     const words = text.split(' ');
@@ -208,8 +209,23 @@ type JobType = {
         </div>  
         </div>
       ))}
+
+
+
+
+      {/* {jobs.map((job) => {
+            <div className="text-black">
+              {job.category}
+            </div>
+   
+
+      })} */}
+
+
+
+
     </>
   )
 }
 
-export default JobListing;
+export default Jobss;
