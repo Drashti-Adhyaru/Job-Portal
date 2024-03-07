@@ -15,13 +15,31 @@ type JobType = {
   address: string
 }
 
- async function Jobss({ searchQuery }: { searchQuery: string }) {
+ async function Jobss({ searchQuery,filters }: { searchQuery: string, filters: Record<string,string>}) {
   const [jobs, setJobs] = useState<any[]>([]);
 
   useEffect(() => {
     async function getJobs() {
       try {
-        const url = searchQuery ? `/api/jobs/search?search=${searchQuery}` : "/api/jobs";
+
+        let url = "/api/jobs";
+        if (searchQuery) {
+          url = `/api/jobs/search?search=${searchQuery}`;
+        } else if (Object.keys(filters).length > 0) {
+          url = "/api/jobs/filter?";
+          Object.keys(filters).forEach((key, index) => {
+            url += `${key}=${filters[key]}`;
+            if (index < Object.keys(filters).length - 1) {
+              url += "&";
+            }
+          });
+        }
+        
+        
+        //const url = searchQuery ? `/api/jobs/search?search=${searchQuery}` : "/api/jobs";
+        
+
+
         const response = await axios.get(url);
         if (response.status === 200) {
           console.log(response.data); 
@@ -33,7 +51,7 @@ type JobType = {
     }
 
     getJobs();
-  }, [searchQuery]);
+  }, [searchQuery,filters]);
   
 
   function truncateText(text: string, wordLimit: number) {
