@@ -4,6 +4,8 @@
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
+import Image from 'next/image';
+
 
 interface idProps {
    
@@ -97,7 +99,15 @@ const ViewJob: React.FC<idProps> = ({_id }) => {
               <div className="mx-auto max-w-2xl lg:mx-0">
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{job?.title}</h2>
     </div>    <div className="relative mt-8 flex items-center gap-x-4">
-          <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" className="h-10 w-10 rounded-full bg-gray-50"/>
+          {/* <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" className="h-10 w-10 rounded-full bg-gray-50"/> */}
+          <Image
+  src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+  alt=""
+  className="h-10 w-10 rounded-full bg-gray-50"
+  width={40} // Set the desired width
+  height={40} // Set the desired height
+/>
+
           <div className="text-sm leading-6">
             <p className="font-semibold text-gray-900">
               <a href="#">
