@@ -93,21 +93,21 @@ function DetailJob(){
               <div className="mx-auto max-w-2xl lg:mx-0">
       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{job?.title}</h2>
     </div>    <div className="relative mt-8 flex items-center gap-x-4">
-          <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" className="h-10 w-10 rounded-full bg-gray-50"/>
-          <div className="text-sm leading-6">
-            <p className="font-semibold text-gray-900">
+          <img src="https://www.freeiconspng.com/uploads/corporate-icon-png-autocorrect-for-business-13.png" alt="" className="h-10 w-10 rounded-full bg-gray-50"/>
+          <div >
+            {/* <p className="font-semibold text-gray-900">
               <a href="#">
                 <span className="absolute inset-0"></span>
                 Employer Name here
               </a>
-            </p>
-            <p className="text-gray-600">{job?.companyName}</p>
+            </p> */}
+            <p className="text-gray-600 font-bold">{job?.companyName}</p>
           </div>
         </div>
-        <div className="flex items-center gap-x-4 text-xs mt-6 mb-10">
+        <div className="flex items-center gap-x-4 text-sm mt-6 mb-10">
         
-        <a  className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{job?.type}</a>
-        <a  className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{job?.category}</a>
+        <a  className="relative z-10 rounded-full bg-gray-200 px-3 py-1.5 font-medium text-gray-600 ">{job?.type}</a>
+        <a  className="relative z-10 rounded-full bg-gray-200 px-3 py-1.5 font-medium text-gray-600 ">{job?.category}</a>
 
       </div>
 
