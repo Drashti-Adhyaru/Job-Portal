@@ -24,7 +24,7 @@ function ApplyFilter({ onApplyFilter }: { onApplyFilter: (filters: Record<string
                     id="category"
                     value={category}
                     onChange={(event) => setCategory(event.target.value)}
-                    className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                    className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 text-sm mt-2 focus:outline-none focus:border-blue-500"
                   >
                     <option value="">Select Category</option>
                     <option value="IT">IT</option>
@@ -43,7 +43,7 @@ function ApplyFilter({ onApplyFilter }: { onApplyFilter: (filters: Record<string
                     id="type"
                     value={type}
                     onChange={(event) => setType(event.target.value)}
-                    className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                    className="bg-white border border-gray-300 rounded-md py-2 px-3 text-gray-700 text-sm focus:outline-none focus:border-blue-500"
                   >
                     <option value="">Select Type</option>
                     <option value="Full Time">Full Time</option>
@@ -59,7 +59,7 @@ function ApplyFilter({ onApplyFilter }: { onApplyFilter: (filters: Record<string
                     type="text"
                     value={location}
                     onChange={(event) => setLocation(event.target.value)}
-                    className="bg-white border border-gray-300 rounded-md py-2 px-3 w-40 text-gray-700 focus:outline-none focus:border-blue-500"
+                    className="bg-white border border-gray-300 rounded-md py-2 px-3 w-42 text-gray-700 text-sm focus:outline-none focus:border-blue-500"
                     placeholder="Enter City or Country"
                   />
                 </div>

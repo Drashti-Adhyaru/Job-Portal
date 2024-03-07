@@ -95,8 +95,8 @@ function Register() {
                         </a>
                       </p>
                     </div>
-                    {error && (
-                      <div className="text-red-500 text-center mb-4">{error}</div>)}
+                    {/* {error && (
+                      <div className="text-red-500 text-center mb-4">{error}</div>)} */}
                     <div className="mt-5">
                       {/* <!-- Grid --> */}
                       <div className="grid grid-cols-2 gap-4">
@@ -144,6 +144,7 @@ function Register() {
                             </label>
                             <input
                               name="email"
+                              type="email"
                               className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
                               required
                           />
@@ -231,6 +232,10 @@ function Register() {
                         {/* <!-- End Input Group --> */}
                       </div>
                       {/* <!-- End Grid --> */}
+
+                      {error && (
+                      <div className="text-red-500 text-center mt-4 mb-4 font-bold">{error}</div>)}
+
 
                       <div className="mt-5">
                         <button
