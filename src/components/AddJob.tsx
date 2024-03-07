@@ -131,9 +131,10 @@ function Addjob() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>                      
-                        <SelectItem value="Part-time">Part time</SelectItem>
-                        <SelectItem value="Full-time">Full Time</SelectItem>
-                        <SelectItem value="Contract">Contract</SelectItem>                      
+                        <SelectItem value="Part Time">Part Time</SelectItem>
+                        <SelectItem value="Full Time">Full Time</SelectItem>
+                        <SelectItem value="Contract">Contract</SelectItem>
+                        <SelectItem value="Freelance">Freelance</SelectItem>                      
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -179,7 +180,7 @@ function Addjob() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="Usa">USA</SelectItem>
+                        <SelectItem value="USA">USA</SelectItem>
                         <SelectItem value="Canada">Canada</SelectItem>
                       </SelectGroup>
                     </SelectContent>

@@ -5,10 +5,16 @@ import { Suspense, useState } from "react";
 
 function UserDashboard() {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [filters, setFilters] = useState<Record<string, string>>({});
 
   function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(event.target.value);
   }
+
+  async function handleFilterSubmit(filterValues: Record<string, string>) {
+    setFilters(filterValues);
+  }
+
   return (
     <>
       {/* <!-- Hero --> */}
@@ -113,7 +119,7 @@ function UserDashboard() {
               {/* <!-- End SVG Element --> */}
             </div>
             <Suspense>
-            <ApplyFilter />
+            <ApplyFilter onApplyFilter={handleFilterSubmit} />
             </Suspense>
           </div>
         </div>
@@ -123,7 +129,7 @@ function UserDashboard() {
       {/* <!-- Unicons --> */}
 
       <Suspense>
-      <JobListing searchQuery={searchQuery}/>
+      <JobListing searchQuery={searchQuery} filters={filters}/>
      </Suspense>
 
     </>
