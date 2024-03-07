@@ -49,12 +49,12 @@ function Jobrequests() {
     }
   }
 
+  
+
   useEffect(() => {
- 
-
+    // This function will be executed after the first render
     getJobs();
-  });
-
+  }, []); 
   function truncateText(text: string, wordLimit: number) {
     const words = text.split(" ");
     let data = "";
@@ -87,7 +87,7 @@ function Jobrequests() {
 
     });
      if(response.status ==200){
-      getJobs();
+      // getJobs();
      }
     
   }
