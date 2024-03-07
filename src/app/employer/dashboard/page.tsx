@@ -15,7 +15,7 @@ import Me from "@/components/Me";
     role:string,
     email:string
   }
-
+  
  let name = ""
 
   //const [userDetails, setUsers] = React.useState<UserType>();

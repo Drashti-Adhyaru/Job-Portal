@@ -81,7 +81,7 @@ type JobType = {
       />
       
 { jobs && jobs.map((job) => (
-        <div className="text-black " >
+        <div key={job._id} className="text-black " >
           {/* {job.description} */}
           <div className="grid mx-20">
           {/* <!-- Question Listing Item Card --> */}

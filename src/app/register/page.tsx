@@ -63,8 +63,8 @@ function Register() {
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400">
                 Join our job search portal to discover a wide range of opportunities. 
-                Whether you're an employer looking to hire or a job seeker searching for your next role,
-                 we've got you covered.
+                Whether you are an employer looking to hire or a job seeker searching for your next role,
+                 we have got you covered.
                 </p>
               </div>
               {/* <!-- End Title --> */}
