@@ -53,7 +53,7 @@ function Jobrequests() {
  
 
     getJobs();
-  }, []);
+  });
 
   function truncateText(text: string, wordLimit: number) {
     const words = text.split(" ");
@@ -141,7 +141,7 @@ function Jobrequests() {
       />
       {jobreq &&
         jobreq.map(async (req) => (
-          <div className="grid mx-20">
+          <div key={req._id} className="grid mx-20">
             {/* <!-- Question Listing Item Card --> */}
             <div className="grid place-items-center">
               <div className="bg-white rounded-lg shadow-sm hover:shadow-lg duration-500 px-2 sm:px-6   w-full sm:w-3/4 md:px-2 py-4 my-6">
