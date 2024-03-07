@@ -94,7 +94,7 @@ type JobType = {
         href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.6/css/line.css"
       />
 {jobs.map((job) => (
-        <div className="text-black" >
+        <div key={job._id} className="text-black" >
           {/* {job.description} */}
           <div className="grid mx-20">
           {/* <!-- Question Listing Item Card --> */}
