@@ -5,9 +5,9 @@ import { Console } from "console";
 export async function redirectBasedOnRole(request : NextRequest, role: string){
 
 
-
+console.log(role);
   
-    if(role=="employee"){
+    if(role=="employee" || role=="user"){
         return NextResponse.redirect(new URL('/user/dashboard', request.url));
     }
     else if(role=="employer"){
