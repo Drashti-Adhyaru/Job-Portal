@@ -15,10 +15,10 @@ export type User = {
   role: string,
   email: string,
   password: string,
- 
+
 };
 
-function Navigation () {
+function Navigation() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
@@ -26,26 +26,28 @@ function Navigation () {
 
 
 
-const getUser = async (): Promise<void> => {
-  try {
-    const response = await axios.get("/api/users/me");
-    console.log("status : " + response.status);
-    setUser(response.data.data);
+  const getUser = async (): Promise<void> => {
+    try {
+      const response = await axios.get("/api/users/me");
+      console.log("status : " + response.status);
+      setUser(response.data.data);
 
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-  }
-};
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
-useEffect(() => {
-  getUser();
-}, []);
+  useEffect(() => {
+    getUser();
+  }, []);
 
 
   const logout = async () => {
     try {
       await axios.get("/api/users/logout");
       router.push("/login");
+      window.location.reload();        
+
     } catch (error: any) {
       console.log(error.message);
     }
@@ -58,17 +60,16 @@ useEffect(() => {
         aria-label="Global"
       >
         <div className="flex p-6">
-        <div>hello {user?.firstName}</div>
-            <div className="flex justify-center items-center">
-          <div className={`relative  w-10 mr-2  ${user != undefined ? "block":"hidden"} overflow-hidden bg-gray-100 h-10 rounded-full dark:bg-gray-600`}>
-    <svg className="absolute  h-10 w-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path  fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-</div>
-    <div className={`font-medium mr-6 dark:text-white  relative`}>
-        <div>{user?.firstName} {user?.lastName}</div>
-        <div className="text-sm  w-auto text-gray-500 dark:text-gray-400">{user?.role} </div>
-    </div>
-    </div>
-         
+          <div className="flex justify-center items-center">
+            <div className={`relative  w-10 mr-2  ${user != undefined ? "block" : "hidden"} overflow-hidden bg-gray-100 h-10 rounded-full dark:bg-gray-600`}>
+              <svg className="absolute  h-10 w-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div className={`font-medium mr-6 dark:text-white  relative`}>
+              <div>{user?.firstName} {user?.lastName}</div>
+              <div className="text-sm  w-auto text-gray-500 dark:text-gray-400">{user?.role} </div>
+            </div>
+          </div>
+
         </div>
         <div className="flex lg:hidden">
           <button
@@ -82,12 +83,12 @@ useEffect(() => {
         </div>
 
         <div className="hidden items-center lg:flex lg:gap-x-12">
-        <Link
+          <Link
             href="/"
             className={`
               ${pathname == "/"
                 ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"} ${user?.role == "user" || null || undefined ?"block":"hidden"}
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user?.role == "user" || null || undefined ? "block" : "hidden"}
             `}
           >
             Home
@@ -97,7 +98,7 @@ useEffect(() => {
             className={`
               ${pathname == "/employer/dashboard"
                 ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"} ${user?.role == "employer"?"block":"hidden"}
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user?.role == "employer" ? "block" : "hidden"}
             `}
           >
             Home
@@ -107,38 +108,32 @@ useEffect(() => {
             className={`
               ${pathname == "/user/appliedList"
                 ? "text-sm font-bold leading-6 text-gray-900 "
-                : "text-sm font-semibold leading-6 text-gray-500"} ${user?.role == "user"?"block":"hidden"}
+                : "text-sm font-semibold leading-6 text-gray-500"} ${user?.role == "user" ? "block" : "hidden"}
             `}
           >
             Applied List
           </Link>
-          {/* <div>
-          <div className={`relative w-10 mr-2  ${user != ""||undefined ? "block":"hidden"} overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}>
-    <svg className="absolute w-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-</div>
-    <div className={`font-medium mr-6 dark:text-white`}>
-        <div>{user.firstName} {user.lastName}</div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">{user.role} </div>
-    </div>
-    </div> */}
-    <button className={`${user !=  undefined || null? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900` } onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
-    <div className="lg:flex lg:flex-1 lg:justify-end">
-        <a href="/login"  className={`${user?._id == ""||undefined ? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900`}>
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
-          
-          
-    
+
+          <button className={`${user != undefined || null ? "block" : "hidden"} text-sm font-semibold leading-6 text-gray-900`} onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
+          <div className="lg:flex lg:flex-1 lg:justify-end">
+            <a href="/login" className={`${user?._id == "" || undefined ? "block" : "hidden"} text-sm font-semibold leading-6 text-gray-900`}>
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
 
 
+
+
+
+          </div>
         </div>
-        </div>
-        {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
-        </div> */}
-        
+
+        {!user && (
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        )}
       </nav>
       <Dialog
         as="div"
@@ -165,13 +160,13 @@ useEffect(() => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-              <div className={`relative w-10 mr-4  ${user != undefined||null ? "block":"hidden"} overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}>
-    <svg className="absolute w-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-</div>
-    <div className={`font-medium mr-6 dark:text-white`}>
-        <div>{user?.firstName} {user?.lastName}</div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">{user?.role} </div>
-    </div>
+                <div className={`relative w-10 mr-4  ${user != undefined || null ? "block" : "hidden"} overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600`}>
+                  <svg className="absolute w-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div className={`font-medium mr-6 dark:text-white`}>
+                  <div>{user?.firstName} {user?.lastName}</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">{user?.role} </div>
+                </div>
                 <Link
                   href="/"
                   className={
@@ -187,19 +182,19 @@ useEffect(() => {
                   className={`
                     ${pathname == "/user/appliedList"
                       ? "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-900 hover:bg-gray-500 "
-                      : "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-500 hover:bg-gray-500"} ${user?.role == "user"?"block":"hidden"
-                  }`}
+                      : "-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 text-gray-500 hover:bg-gray-500"} ${user?.role == "user" ? "block" : "hidden"
+                    }`}
                 >
                   Applied List
                 </Link>
 
-               
+
               </div>
               <div className="py-6">
-              <a href="/login"  className={`${user?._id == ""||undefined ? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900`}>
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
-          <button className={`${user != undefined || null? "block":"hidden"} text-sm font-semibold leading-6 text-gray-900` } onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
+                <a href="/login" className={`${user?._id == "" || undefined ? "block" : "hidden"} text-sm font-semibold leading-6 text-gray-900`}>
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </a>
+                <button className={`${user != undefined || null ? "block" : "hidden"} text-sm font-semibold leading-6 text-gray-900`} onClick={logout} > Logout <span aria-hidden="true">&rarr;</span></button>
 
               </div>
             </div>
@@ -207,36 +202,7 @@ useEffect(() => {
         </Dialog.Panel>
       </Dialog>
 
-      {/* <nav className="bg-gray-900 p-4 flex justify-between items-center">
-  <div className="logo">
-    <img src="logo.png" alt="Logo" className="w-24 h-24 object-contain" />
-  </div>
-  <ul className="flex">
-    <li className="mx-2">
-      <Link href="/" className="text-sm font-semibold leading-6 text-gray-900">Home</Link>
-    </li>
-    <li className="mx-2">
-      <Link href="/login" className="text-sm font-semibold leading-6 text-gray-900">Login</Link>
-    </li>
-    <li className="mx-2">
-      <Link href="/register" className="text-sm font-semibold leading-6 text-gray-900">Register</Link>
-    </li>
-    <li className="mx-2">
-      <Link href="/user/dashboard" className="text-sm font-semibold leading-6 text-gray-900">User Dashboard</Link>
-    </li>
 
-    <li className="mx-2">
-      <Link href="/user/applyjob" className="text-sm font-semibold leading-6 text-gray-900">Apply Job</Link>
-    </li>
-
-    <li className="mx-2">
-      <Link href="/employer/dashboard" className="text-sm font-semibold leading-6 text-gray-900">Employer Dashboard</Link>
-    </li>
-    <li className="mx-2">
-      <Link href="/employer/addjob" className="text-sm font-semibold leading-6 text-gray-900">Add Job</Link>
-    </li>
-  </ul>
-</nav> */}
     </>
   );
 };
