@@ -22,7 +22,7 @@ export async function GET(request:NextRequest){
                 // Assuming fetchResumeById is an async function that calls another API
                 resumesArray.push(resumeData);
             }
-            console.log( "array value"+ resumesArray);
+            // console.log( "array value"+ resumesArray);
         }
         return NextResponse.json({
             message: "Requests found",
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest){
                     
                 })
         
-                console.log(newRequest);
+                // console.log(newRequest);
         // Saves the new user to the database.
                 const savedRequest = await newRequest.save()
         
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest){
 
     export async function PUT(request: NextRequest) {
         try {
-            console.log("reached API")
+            // console.log("reached API")
             const userId = await getDataFromToken(request);
             const role = await getRoleFromToken(request);
     
@@ -149,7 +149,7 @@ export async function POST(request: NextRequest){
                     dateApplied,  },
                 { new: true } // Return the updated document
             );
-            console.log(updatedRequest);
+            // console.log(updatedRequest);
     
             if (!updatedRequest) {
                 throw new Error("Request not found or you are not authorized to update it.");
