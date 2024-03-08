@@ -84,6 +84,9 @@ type JobType = {
     console.log(formattedText);
     return   <div dangerouslySetInnerHTML={{ __html: formattedText }} />
   }
+  else{
+    return text;
+  }
     
   }
 

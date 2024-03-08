@@ -11,6 +11,8 @@ import {
   } from "@/components/ui/alert-dialog"
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface idProps {
    
@@ -27,8 +29,13 @@ interface idProps {
           const response = await axios.delete("/api/jobs?jobId="+_id);
           if (response.status == 200) {
             // Job deleted successfully
+            toast.success('Job have  successfully deleted!');
+            console.log('SUCCESS!');
             console.log("Job deleted successfully");
-            router.push("/employer/dashboard");
+            setTimeout(function() {
+              router.push("/employer/dashboard");
+           }, 3000);
+           
           } else {
             // Handle error
             console.error("Failed to delete job");
@@ -42,6 +49,7 @@ interface idProps {
 
     return(
         <>
+         <ToastContainer/>
         <AlertDialog>
   <AlertDialogTrigger className="rounded-md bg-red-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Delete</AlertDialogTrigger>
   <AlertDialogContent>
