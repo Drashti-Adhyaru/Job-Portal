@@ -24,10 +24,14 @@ function Login() {
     if (response.ok) {    
       response.json().then(data => {
         console.log(data)
-        if(data.data.role === "employer")
-        router.push("/employer/dashboard");
+        if(data.data.role === "employer"){
+          router.push("/employer/dashboard");
+          window.location.reload();        
+        }
       else {
         router.push("/user/dashboard");
+        window.location.reload();        
+
       }
     })
      

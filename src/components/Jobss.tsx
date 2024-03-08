@@ -24,7 +24,7 @@ type JobType = {
       try {
         const response = await axios.get("/api/jobs/jobsbyid");
         if (response.status === 200) {
-          console.log(response.data); // Make sure the data structure is as expected
+          // console.log(response.data); // Make sure the data structure is as expected
           setJobs(response.data.data); // Set the fetched data to the state
         }
       } catch (error) {
@@ -67,7 +67,7 @@ type JobType = {
   const formattedText = newdata.replace(regex, '<h2 style="color:gray; font-weight:800 ">$1</h2>');
 
 //const modifiedString = data.replace(/\*\*/g, '<h2  style="color:gray; font-weight:800 ; margin-bottom:.5rem">Job Title:</h2>');
-    console.log(formattedText);
+    // console.log(formattedText);
     return   <div dangerouslySetInnerHTML={{ __html: formattedText }} />
   }
   else{

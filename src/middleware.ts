@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { redirectBasedOnRole } from './app/lib/auth';
 
 export  async function middleware(request: NextRequest) {
-    console.log(request.cookies);
+    // console.log(request.cookies);
     const token = request.cookies.get('token');
   const role = request.cookies.get('role');
     console.log("DEBUG:: For path "+request.nextUrl.pathname );
