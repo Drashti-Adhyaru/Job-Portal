@@ -12,6 +12,8 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Button } from "./ui/button";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Dialog,
   DialogClose,
@@ -32,6 +34,7 @@ function Jobrequests() {
   console.log(jobreq);
   const id = router.split("/")[2];
 
+  const [statusValue, setStatusUpdate] = useState<boolean | string>(false);
   async function getJobs() {
     try {
       const response = await axios.get("/api/requests", {
@@ -86,9 +89,18 @@ function Jobrequests() {
       }),
 
     });
-     if(response.status ==200){
-      // getJobs();
+    if(response.status == 200){
+      toast.success('Request have '+ value+  ' successfully!');
+      console.log('SUCCESS!');     
+      getJobs();
+   
+      
      }
+     else{
+      toast.error('Some error have occured!');
+      console.log('error!');
+     }
+
     
   }
 
@@ -139,6 +151,7 @@ function Jobrequests() {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.6/css/line.css"
       />
+      <ToastContainer/>
       {jobreq &&
         jobreq.map(async (req) => (
           <div key={req._id} className="grid mx-20">
@@ -156,18 +169,18 @@ function Jobrequests() {
                           {req[0].firstName}
                         </a>
                         <div>
+                          
                           <Button
-                         
-                          disabled={await setStatus(req[0]._id)}
-                            variant="destructive"
+                          disabled={await setStatus(req[0]._id || statusValue)}
                             onClick={() =>
                               onChangeStatue("rejected", req[0]._id)
                             }
+                            className="bg-red-800 ml-4"
                           >
                             Reject
                           </Button>
                           <Button
-                          disabled={await setStatus(req[0]._id)}
+                          disabled={await setStatus(req[0]._id || statusValue)}
                             onClick={() =>
                               onChangeStatue("accepted", req[0]._id)
                             }

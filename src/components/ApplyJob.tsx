@@ -11,7 +11,8 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Input, Textarea } from "@nextui-org/react";
 import { Label } from "./ui/label";
 import {
@@ -24,13 +25,14 @@ import {
   SelectValue,
 } from "./ui/select";
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
 interface idProps {
    
   _id: string;
 
 }
 const Addjob: React.FC<idProps> = ({_id }) => {
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
   function getCurrentDate() {
@@ -94,8 +96,8 @@ const Addjob: React.FC<idProps> = ({_id }) => {
       
       
     });
-    
     if(response.status == 200){
+    
       console.log(response);
       const data = await fetch("/api/requests", {
         method: "POST",
@@ -106,14 +108,21 @@ const Addjob: React.FC<idProps> = ({_id }) => {
           dateApplied: getCurrentDate(), 
          }),      
       });
+      toast.success('Successfully Applied to the job!');
+      console.log('SUCCESS!');
+      setTimeout(function() {
+        router.push("/user/appliedList");
+     }, 3000);
     }
-   window.location.reload();
+  
+   
   
    
   }
 
   return (
     <>
+     <ToastContainer/>
       <Dialog>
         <DialogTrigger asChild>
           <Button

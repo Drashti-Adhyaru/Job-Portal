@@ -11,6 +11,8 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Input, Textarea } from "@nextui-org/react";
 import { Label } from "./ui/label";
@@ -81,13 +83,24 @@ function Addjob() {
       
     });
      if(response.status == 200){
-      window.location.reload();
+      toast.success('Job have  successfully psosted!');
+      console.log('SUCCESS!');
+
+      setTimeout(function() {
+   window.location.reload();
+}, 3000);    
      }
+     else{
+      toast.error('Some error have occured!');
+      console.log('error!');
+     }
+
    
   }
 
   return (
     <>
+    <ToastContainer/>
       <Dialog>
         <DialogTrigger asChild>
           <Button
