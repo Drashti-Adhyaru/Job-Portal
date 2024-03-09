@@ -33,3 +33,62 @@ This is a Next.js web application for a job portal, designed to facilitate job p
 
 ## Folder Structure
 
+./app
+├── api
+├── components
+├── employer
+├── helper
+├── lib
+├── login
+├── profile
+├── register
+└── user
+
+./components
+├── AddJob.tsx
+├── ApplyFilter.tsx
+├── ApplyJob.tsx
+├── DeleteJob.tsx
+├── EditJob.tsx
+├── JobListing.tsx
+├── Jobrequests.tsx
+├── Jobs.tsx
+├── Me.tsx
+├── MyAppliedLists.tsx
+├── Navigation.tsx
+└── ViewJob.tsx
+
+./dbConfig
+└── dbConfig.ts
+
+./lib
+└── utils.ts
+
+./models
+├── jobModel.js
+├── requestModel.js
+├── resumeModel.js
+└── userModel.js
+
+
+
+## Database Configuration
+
+- Configuration files for database connections.
+- Utilizes MongoDB for data storage.
+
+## Installation
+
+To run the application locally, follow these steps:
+
+1. Clone this repository.
+2. Install dependencies using `npm install`.
+3. Start the development server using `npm run dev`.
+
+## Contributors
+
+- [Your Name](https://github.com/your-username)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
