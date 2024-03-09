@@ -1,48 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Job Portal Application
 
-## Getting Started
+This is a Next.js web application for a job portal, designed to facilitate job posting, job search, and application management for both employers and job seekers.
 
-First, run the development server:
+## Features
 
-```bash
-npm install
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Authentication
 
-for login use
-email : vat@gmail.com
-password: Vatsal@12345
+- User authentication with login, logout, and signup functionalities.
+- Access control for employer and employee-specific features.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Employer Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Dashboard**: Provides an overview of statistics and recent activities.
+- **Request Management**: Allows employers to view and manage job requests from applicants.
+- **Job Posting**: Enables employers to post new job listings.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Employee Features
 
-## Learn More
+- **Dashboard**: Displays personalized information and lists applied jobs.
+- **Job Search and Viewing**: Allows users to search for jobs and view job details.
+- **Application Management**: Enables users to view their applied jobs and manage applications.
 
-To learn more about Next.js, take a look at the following resources:
+### Backend API
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- RESTful API endpoints for various functionalities.
+- Routes for handling jobs, requests, resumes, and user-related actions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Reusable UI Components
 
-## Deploy on Vercel
+- Includes a collection of reusable UI components for forms, job listings, job details, user profiles, etc.
+- Enhances modularity and maintainability of the codebase.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Folder Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
-
-
-
-# Job-Portal
-Job Portal For Employees and Employers
