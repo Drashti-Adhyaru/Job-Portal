@@ -2,6 +2,21 @@
 
 This is a Next.js web application for a job portal, designed to facilitate job posting, job search, and application management for both employers and job seekers.
 
+
+## Deployment
+
+The application is deployed and can be accessed [here](https://job-portal-beryl-theta.vercel.app/).
+
+## Test Accounts
+
+### Employee Login:
+- **Email:** employee@gmail.com
+- **Password:** Password123
+
+### Employer Login:
+- **Email:** employer@gmail.com
+- **Password:** Password123
+
 ## Features
 
 ### Authentication
