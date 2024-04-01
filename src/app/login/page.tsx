@@ -48,7 +48,7 @@ function Login() {
           <div className="grid items-center md:grid-cols-2 gap-8 lg:gap-12">
             <div>
               <p className="inline-block text-sm font-medium bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 text-transparent dark:from-blue-400 dark:to-violet-400">
-              Building Careers, Bridging Futures!
+              Building a Careers, Bridging Futures!
               </p>
 
               {/* <!-- Title --> */}
