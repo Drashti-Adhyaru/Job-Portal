@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const customerSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        required: [true, "Please provide valid Id"],
+    }
+    ,
     phone: {
         type: String,
         required: [true, "Please provide phone number"],

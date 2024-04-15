@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
 
         const reqBody = await request.json()
         const {
+            _id,
             phone,
             address,
             email,
@@ -69,6 +70,7 @@ export async function POST(request: NextRequest) {
         } = reqBody
 
         const newResume = new Customer({
+            _id,
             phone,
             address,
             email,
