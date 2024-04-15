@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
         if (!customer) {
             // If customer not found, return "User not found" response
-            return NextResponse.json([]);
+            return NextResponse.json([], { status: 404 });
         }
         
         const id2 = customer._id;
