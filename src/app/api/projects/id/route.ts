@@ -18,7 +18,8 @@ export async function GET(request:NextRequest){
         return NextResponse.json({
             message: "Project found",
             data: requests
-        })
+        },{status: 200}
+    )
 
        
         
