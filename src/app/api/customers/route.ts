@@ -118,9 +118,8 @@ export async function POST(request: NextRequest) {
             message: "Customer created successfully",
             success: true,
             savedResume
-        }, { headers: { 'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-         } });
+        },{status:200}
+       );
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 })
 
