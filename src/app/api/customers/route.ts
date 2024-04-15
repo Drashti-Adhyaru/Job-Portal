@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
                 experiences: experiences,
                 educations: educations
             }
-        })
+        }, { headers: { 'Access-Control-Allow-Origin': '*' } });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 400 })
     }
