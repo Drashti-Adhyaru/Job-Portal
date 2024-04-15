@@ -29,7 +29,11 @@ export async function GET(request: NextRequest) {
                 experiences: experiences,
                 educations: educations
             }
-        }, { headers: { 'Access-Control-Allow-Origin': '*' } });
+        }, { headers: { 'Access-Control-Allow-Origin': '*' ,
+        
+        'Referrer-Policy': 'strict-origin-when-cross-origin'
+
+        } });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 400 })
     }
@@ -112,7 +116,11 @@ export async function POST(request: NextRequest) {
             message: "Customer created successfully",
             success: true,
             savedResume
-        }, { headers: { 'Access-Control-Allow-Origin': '*' } });
+        }, { headers: { 'Access-Control-Allow-Origin': '*',
+        'Referrer-Policy': 'strict-origin-when-cross-origin'
+
+
+         } });
 
 
 
