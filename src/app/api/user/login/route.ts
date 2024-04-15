@@ -55,7 +55,7 @@ export async function POST(request: NextRequest){
             message: "Login successful",
             success: true,
             data: tokenData
-        })
+        },{status:200})
        
         // Set the token as an HTTP-only cookie
         response.cookies.set("token", token, {
