@@ -17,11 +17,7 @@ export async function POST(request: NextRequest) {
         if (user) {
             console.log(user);
             return NextResponse.json({ message: "User already exists" }, { status: 400 });
-        } else {
-            console.log('User not found');
-            // Proceed with user creation
-        }
-
+        } 
         // Hash password using bcryptjs.
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
@@ -42,7 +38,8 @@ export async function POST(request: NextRequest) {
             message: "User for Portfolio created successfully",
             success: true,
             savedUser
-        });
+        },{status:200});
+        
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
