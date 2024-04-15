@@ -16,12 +16,17 @@ export async function GET(request: NextRequest) {
         const id = searchParams.get('url');
         const customer = await Customer.findOne({ urlName: id });
 
+        if (!customer) {
+            // If customer not found, return "User not found" response
+            return NextResponse.json([]);
+        }
         
         const id2 = customer._id;
 
         const projects = await Project.find({ userId: id2});
         const experiences = await Experience.find({ userId: id2 });
         const educations = await Education.find({ userId: id2});
+
 
 
         return NextResponse.json({
