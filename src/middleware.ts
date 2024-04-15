@@ -20,9 +20,7 @@ export  async function middleware(request: NextRequest) {
         else if (request.nextUrl.pathname.startsWith('/register')) {
             return NextResponse.next();
         }
-        else if((request.nextUrl.pathname==('/'))){
-            return NextResponse.next();
-        }
+       
       //   else if((request.nextUrl.pathname==('/api/users/'))){
       //     return NextResponse.next();
       // }

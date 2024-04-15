@@ -29,10 +29,9 @@ export async function GET(request: NextRequest) {
                 experiences: experiences,
                 educations: educations
             }
-        }, { headers: { 'Access-Control-Allow-Origin': '*' ,
+        }, { headers: { 'Access-Control-Allow-Origin': '@Crossorigin("*")' ,
         'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
 
-        'Referrer-Policy': 'strict-origin-when-cross-origin'
 
         } });
     } catch (error: any) {
@@ -120,10 +119,7 @@ export async function POST(request: NextRequest) {
             success: true,
             savedResume
         }, { headers: { 'Access-Control-Allow-Origin': '*',
-        'Referrer-Policy': 'strict-origin-when-cross-origin',
         'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-
-
          } });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 })

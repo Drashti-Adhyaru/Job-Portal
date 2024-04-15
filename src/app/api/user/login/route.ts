@@ -20,7 +20,7 @@ export async function POST(request: NextRequest){
         console.log(user)
 
         if(!user){
-            return NextResponse.json({error: "User does not exist"}, {status: 400})
+            return NextResponse.json({error: "User does not exist"}, {status: 300})
         }else{
             console.log("user is there")
         }
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest){
       
         (password, user.password)
         if(!validPassword){
-            return NextResponse.json({error: "Invlid password"}, {status: 400})
+            return NextResponse.json({error: "Invlid password"}, {status: 300})
         }
 
 //create token data
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest){
         return response;
 
     } catch (error: any) {
-        return NextResponse.json({error: error.message}, {status: 500})
+        return NextResponse.json({error: error.message}, {status: 300})
 
     }
 }
