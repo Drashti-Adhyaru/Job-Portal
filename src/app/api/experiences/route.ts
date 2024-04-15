@@ -15,7 +15,7 @@ export async function GET(request:NextRequest){
         return NextResponse.json({
             message: "Experiences found",
             data: requests
-        })
+        },  {status:200})
 
        
         

@@ -14,11 +14,11 @@ export async function GET(request: NextRequest) {
 
         if (!customer) {
             // If customer not found, return false
-            return NextResponse.json({ exists: false });
+            return NextResponse.json({ exists: false },  {status:200});
         }
 
         // If customer found, return true
-        return NextResponse.json({ exists: true });
+        return NextResponse.json({ exists: true },  {status:200});
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 400 });
     }

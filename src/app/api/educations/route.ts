@@ -17,7 +17,7 @@ export async function GET(request:NextRequest){
         return NextResponse.json({
             message: "Educations found",
             data: requests
-        })
+        },  {status:200})
 
        
         

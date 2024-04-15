@@ -126,11 +126,7 @@ export async function POST(request: NextRequest) {
             message: "Customer created successfully",
             success: true,
             savedResume
-        }, { headers: { 'Access-Control-Allow-Origin': '*',
-        'Referrer-Policy': 'strict-origin-when-cross-origin'
-
-
-         } });
+        },  {status:200});
 
 
 

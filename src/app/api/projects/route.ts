@@ -15,7 +15,7 @@ export async function GET(request:NextRequest){
         return NextResponse.json({
             message: "Projects found",
             data: requests
-        })
+        },  {status:200})
 
        
         
