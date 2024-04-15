@@ -21,8 +21,6 @@ export async function POST(request: NextRequest){
 
         if(!user){
             return NextResponse.json({error: "User does not exist"}, {status: 300})
-        }else{
-            console.log("user is there")
         }
         
         //check if password is correct
@@ -55,7 +53,8 @@ export async function POST(request: NextRequest){
             message: "Login successful",
             success: true,
             data: tokenData
-        },{status:200})
+        },{status:200});
+        
        
         // Set the token as an HTTP-only cookie
         response.cookies.set("token", token, {
