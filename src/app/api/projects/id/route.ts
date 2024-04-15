@@ -1,30 +1,39 @@
-import {connect} from "@/dbConfig/dbConfig";
+import { connect } from "@/dbConfig/dbConfig";
 import Customer from "@/models/customerModel";
 import Project from "@/models/projectModel";
 
 import { NextRequest, NextResponse } from "next/server";
 
-connect()
+connect();
 
-export async function GET(request:NextRequest){
-
+export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
-    const Id = searchParams.get('id');
-    try {
+    const id = searchParams.get('id');
+    if (!id) {
+        return NextResponse.json({ error: "Project ID is required" }, { status: 400 });
+    }
 
-       
-        const requests = await Project.findOne({_id:Id});
-       
+    try {
+        const project = await Project.findOne({ _id: id });
+        if (!project) {
+            return NextResponse.json({ error: "Project not found" }, { status: 404 });
+        }
+
+        const customer = await Customer.findOne({ _id: project.userId });
+        if (!customer) {
+            return NextResponse.json({ error: "Customer not found for this project" }, { status: 404 });
+        }
+
         return NextResponse.json({
             message: "Project found",
-            data: requests
-        },{status: 200}
-    )
+            data: {
+                project,
+                urlName: customer.urlName
+            }
+        }, { status: 200 });
 
-       
-        
     } catch (error: any) {
-        return NextResponse.json({error: error.message}, {status: 400})
-        
+        console.error("Error fetching data:", error.message);
+        return NextResponse.json({ error: "An error occurred while fetching data" }, { status: 500 });
     }
 }

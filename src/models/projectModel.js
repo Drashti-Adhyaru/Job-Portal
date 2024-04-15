@@ -12,7 +12,8 @@ const projectSchema = new mongoose.Schema({
     githubLink: String,
     skills: String,
     learningOutcomes: String,
-    projectPic: String
+    projectPic: String,
+    userId: String
 });
 
 const Project = mongoose.model("projects", projectSchema);
