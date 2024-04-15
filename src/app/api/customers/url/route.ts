@@ -13,12 +13,15 @@ export async function GET(request: NextRequest) {
     try {
 
         const searchParams = request.nextUrl.searchParams;
-        const id = searchParams.get('id');
-        const customer = await Customer.findOne({ _id: id });
+        const id = searchParams.get('url');
+        const customer = await Customer.findOne({ urlName: id });
 
-        const projects = await Project.find({ userId: id });
-        const experiences = await Experience.find({ userId: id });
-        const educations = await Education.find({ userId: id });
+        
+        const id2 = customer._id;
+
+        const projects = await Project.find({ userId: id2});
+        const experiences = await Experience.find({ userId: id2 });
+        const educations = await Education.find({ userId: id2});
 
 
         return NextResponse.json({
@@ -30,8 +33,7 @@ export async function GET(request: NextRequest) {
                 educations: educations
             }
         }, { headers: { 'Access-Control-Allow-Origin': '*' ,
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-
+        
         'Referrer-Policy': 'strict-origin-when-cross-origin'
 
         } });
@@ -118,8 +120,7 @@ export async function POST(request: NextRequest) {
             success: true,
             savedResume
         }, { headers: { 'Access-Control-Allow-Origin': '*',
-        'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+        'Referrer-Policy': 'strict-origin-when-cross-origin'
 
 
          } });
