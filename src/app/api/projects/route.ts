@@ -25,6 +25,42 @@ export async function GET(request:NextRequest){
     }
 }
 
+
+export async function POST(request: NextRequest) {
+    try {
+        const reqBody = await request.json();  // Parse the JSON body from the request
+
+        // Destructure the needed properties from the request body
+        const { projectTitle, description, githubLink, skills, learningOutcomes, projectPic, userId } = reqBody;
+
+        // Create a new project instance using the model
+        const newProject = new Project({
+            projectTitle,
+            description,
+            githubLink,
+            skills,
+            learningOutcomes,
+            projectPic,
+            userId
+        });
+
+        // Save the new project to the database
+        const savedProject = await newProject.save();
+
+        // Respond with the newly created project
+        return NextResponse.json({
+            message: "New project created successfully",
+            data: savedProject
+        }, { status: 201 });  // Use HTTP status code 201 for Created
+    } catch (error) {
+        console.error('Failed to create project:', error);
+        return NextResponse.json({
+            error: "An error occurred while creating the project",
+            details: error
+        }, { status: 500 });  // Internal Server Error for unexpected issues
+    }
+}
+
 export async function PUT(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;

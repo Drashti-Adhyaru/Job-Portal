@@ -26,7 +26,44 @@ export async function GET(request:NextRequest){
         
     }
 }
+// qualification: {
+// collegeName: {
+// address: {
+// startDate: {
+// endDate: {
 
+export async function POST(request: NextRequest) {
+    try {
+        const reqBody = await request.json(); // Parse the request body
+        const { qualification, collegeName, address, startDate, endDate, userId } = reqBody;
+
+        // Create a new education instance
+        const newEducation = new Education({
+            qualification,
+            collegeName,
+            address,
+            startDate,
+            endDate,
+            userId
+        });
+
+        // Save the new education record in the database
+        const savedEducation = await newEducation.save();
+
+        // Return the newly created education record
+        return NextResponse.json({
+            message: "New education record created successfully",
+            data: savedEducation
+        }, { status: 201 }); // HTTP status code 201 for Created
+
+    } catch (error: any) {
+        console.error('Failed to create education record:', error);
+        return NextResponse.json({
+            error: "An error occurred while creating the education record",
+            details: error.message
+        }, { status: 500 }); // Internal Server Error for unexpected issues
+    }
+}
 
 export async function PUT(request: NextRequest) {
     try {

@@ -3,7 +3,6 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken"
-import console from "console";
 require("dotenv").config();
 
 connect()
@@ -68,7 +67,6 @@ export async function POST(request: NextRequest){
             httpOnly: true,
         })
 
-        return response;
 
     } catch (error: any) {
         return NextResponse.json({error: error.message}, {status: 300})
