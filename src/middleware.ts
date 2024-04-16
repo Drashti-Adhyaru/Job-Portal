@@ -31,6 +31,16 @@ export  async function middleware(request: NextRequest) {
     // Add more logic here if you need to check user roles
     // and redirect or modify the request accordingly
 
+    request.headers.append('Access-Control-Allow-Credentials', "true")
+    request.headers.append('Access-Control-Allow-Origin', '*') // replace this your actual origin
+    request.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+    request.headers.append(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    )
+
+
+
     return NextResponse.next();
 }
 
