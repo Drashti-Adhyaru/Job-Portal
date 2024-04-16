@@ -125,3 +125,46 @@ export async function POST(request: NextRequest) {
 
     }
 }
+
+
+
+
+export async function PUT(request: NextRequest) {
+    try {
+        const searchParams = request.nextUrl.searchParams;
+        const id = searchParams.get('id'); // Get customer ID from URL query parameter
+
+        if (!id) {
+            return NextResponse.json({ error: "Customer ID is required" }, { status: 400 });
+        }
+
+        const reqBody = await request.json(); // Get data from request body
+
+        const customer = await Customer.findOne({_id:id});
+        if (!customer) {
+            return NextResponse.json({ error: "Customer not found" }, { status: 404 });
+        }
+
+        // Update customer fields with new data from reqBody
+        customer.phone = reqBody.phone || customer.phone;
+        customer.address = reqBody.address || customer.address;
+        customer.email = reqBody.email || customer.email;
+        customer.firstName = reqBody.firstName || customer.firstName;
+        customer.lastName = reqBody.lastName || customer.lastName;
+        customer.summary = reqBody.summary || customer.summary;
+        customer.skills = reqBody.skills || customer.skills;
+        customer.githubLink = reqBody.githubLink || customer.githubLink;
+        customer.linkdinLink = reqBody.linkdinLink || customer.linkdinLink;
+        customer.profilePicLink = reqBody.profilePicLink || customer.profilePicLink;
+
+        const updatedCustomer = await customer.save(); // Save the updated customer
+
+        return NextResponse.json({
+            message: "Customer updated successfully",
+            data: updatedCustomer
+        }, { status: 200 });
+    } catch (error) {
+        console.error("Error updating customer:",error);
+        return NextResponse.json({ error: error }, { status: 500 });
+    }
+}
