@@ -1,5 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
+
 connect()
 const headers = {
     'Access-Control-Allow-Origin': 'http://localhost:4200',
@@ -10,7 +11,13 @@ export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json(); // Parse the JSON body from the request
         const { email } = reqBody;
+
         console.log(email);
+        // Create a new Experience object
+        // const user = User.findOne({"email":email});
+        
+        // Respond with the newly created experience
+       
         return NextResponse.json({
             message: "User Found",
             data: email
