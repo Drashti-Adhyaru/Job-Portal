@@ -5,13 +5,31 @@ import bcryptjs from "bcryptjs";
 
 
 connect()
+
+export async function GET(request: NextRequest){
+    try{
+        return NextResponse.json({
+            message: "Sign Up Get Request is not usable",
+            success: true,
+            
+        },{status:200});
+    }catch(error: any){
+        return NextResponse.json({
+            message: "Error for Sign up Get",
+            success: true,
+            
+        },{status:500});
+    }
+}
+
+
 // Calls the connect function to establish a connection to the database.
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json();
         const { firstName, lastName, email, password } = reqBody;
 
-        // Checks if a user with the provided email already exists.
+        // // Checks if a user with the provided email already exists.
         const user = await User.findOne({ email });
 
         if (user) {
