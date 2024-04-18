@@ -91,3 +91,29 @@ export async function PUT(request: NextRequest) {
     }
 }
 
+
+
+export async function DELETE(request: NextRequest) {
+    try {
+
+        const url = new URL(request.url);
+        const jobId = url.searchParams.get('id');
+
+
+        const deletedJob = await Education.findOneAndDelete({ _id: jobId });
+
+        if (!deletedJob) {
+            throw new Error("Job not found or you are not authorized to delete it.");
+        }
+
+        return NextResponse.json({
+            message: "Job deleted successfully",
+            success: true,
+            deletedJob
+        });
+    
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
+
